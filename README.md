@@ -1,2 +1,2 @@
 # FiddlerApplication
-Super simple project and task management application
+Basic task management engine
