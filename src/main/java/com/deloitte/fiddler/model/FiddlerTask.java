@@ -1,11 +1,13 @@
 package com.deloitte.fiddler.model;
 
-import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
 public class FiddlerTask {
+	
+	public FiddlerTask() {
+		this.setTaskStatus("Open");
+	}
 	
 		
 	private String taskTitle;

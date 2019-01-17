@@ -11,6 +11,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "projects")
 public class FiddlerProject {
 	
+	public FiddlerProject() {
+		this.setProjectStatus("Open");
+	}
+	
 	public String getProjectType() {
 		return projectType;
 	}
@@ -57,6 +61,6 @@ public class FiddlerProject {
 	
 	private String projectStatus;
 	
-	private List<FiddlerProcess> processes = new ArrayList<>();;
+	private List<FiddlerProcess> processes = new ArrayList<>();
 
 }
