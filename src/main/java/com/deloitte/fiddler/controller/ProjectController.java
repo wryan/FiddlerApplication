@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.deloitte.fiddler.model.FiddlerProject;
+import com.deloitte.fiddler.model.ProjectInitializer;
 import com.deloitte.fiddler.service.ProjectService;
 
 
@@ -23,8 +24,8 @@ public class ProjectController {
 	ProjectService ps;
 	
 	@PostMapping
-    public FiddlerProject createNewProject() {
-        return this.ps.createProject();
+    public FiddlerProject createNewProject(@RequestBody ProjectInitializer pj) {
+        return this.ps.createProject(pj.getJsonURL());
     }
 	
 	@GetMapping

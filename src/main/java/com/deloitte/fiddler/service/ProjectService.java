@@ -7,7 +7,7 @@ import com.deloitte.fiddler.model.FiddlerTask;
 
 public interface ProjectService {
 	
-	public FiddlerProject createProject();
+	public FiddlerProject createProject(String url);
 	
 	public List<FiddlerProject> getAllProjects();
 	

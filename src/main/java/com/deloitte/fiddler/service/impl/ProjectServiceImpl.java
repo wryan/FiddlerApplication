@@ -36,8 +36,8 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public FiddlerProject createProject() {
-		return this.pr.save(wc.getWebEntity(FiddlerProject.class, "https://raw.githubusercontent.com/bobmalouf/FiddlerTemplates/master/src/templates/json/MyEveningRoutine.json"));
+	public FiddlerProject createProject(String url) {
+		return this.pr.save(wc.getWebEntity(FiddlerProject.class, url));
 	}
 
 	@Override
