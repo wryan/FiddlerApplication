@@ -1,7 +1,7 @@
 spring:
   data:
     mongodb:
-  #    host: ${MONGO_HOST}
+      host: ${MONGO_HOST}
     rest:
       detection-strategy: annotated
   autoconfigure:
