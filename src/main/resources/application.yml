@@ -7,4 +7,5 @@ spring:
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
         
-    
+server:
+  contextPath: /api
