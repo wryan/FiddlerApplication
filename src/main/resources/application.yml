@@ -12,4 +12,4 @@ spring:
       write-dates-as-timestamps: true
 server:
   servlet:
-    contextPath: /api
+#    contextPath: /api

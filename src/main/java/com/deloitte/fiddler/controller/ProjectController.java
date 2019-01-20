@@ -17,7 +17,7 @@ import com.deloitte.fiddler.service.ProjectService;
 
 
 @RestController
-@RequestMapping("/project")
+@RequestMapping("/api/project")
 public class ProjectController {
 	
 	@Autowired
