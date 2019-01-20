@@ -10,6 +10,6 @@ spring:
   jackson:
     serialization:
       write-dates-as-timestamps: true
-server:
-  servlet:
+#server:
+#  servlet:
 #    contextPath: /api
