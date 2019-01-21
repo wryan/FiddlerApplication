@@ -41,8 +41,9 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public FiddlerProject updateProject(FiddlerProject fd) {
-		return this.pr.save(fd);
+	public FiddlerProject updateProject(FiddlerProject fp) {
+		this.checkForProjectClosure(fp);
+		return this.pr.save(fp);
 
 	}
 
@@ -56,8 +57,18 @@ public class ProjectServiceImpl implements ProjectService {
 		
 		FiddlerProject proj = this.pr.findById(fp).get();
 		proj.getProcesses().get(processIndex).getTasks().set(taskIndex, ft);
+		this.checkForProjectClosure(proj);
 		return this.pr.save(proj).getProcesses().get(processIndex).getTasks().get(taskIndex);
 	
+	}
+	
+	private FiddlerProject checkForProjectClosure(FiddlerProject fp) {
+		if(fp.getProcesses().stream().allMatch(a -> 
+		a.getTasks().stream().allMatch(b -> 
+		b.getTaskStatus().equals("Closed")))) {
+			fp.setProjectStatus("Closed");
+		}
+		return fp;
 	}
 
 }
