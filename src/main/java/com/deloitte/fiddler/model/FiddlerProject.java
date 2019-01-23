@@ -1,6 +1,7 @@
 package com.deloitte.fiddler.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -13,6 +14,7 @@ public class FiddlerProject {
 	
 	public FiddlerProject() {
 		this.setProjectStatus("Open");
+		this.setCreated(new Date());
 	}
 	
 	public String getProjectType() {
@@ -52,6 +54,14 @@ public class FiddlerProject {
 		return this.projectId;
 	}
 
+	public Date getCreated() {
+		return created;
+	}
+
+	private void setCreated(Date created) {
+		this.created = created;
+	}
+
 	@Id
 	private String projectId;
 	
@@ -60,6 +70,8 @@ public class FiddlerProject {
 	private String projectName;
 	
 	private String projectStatus;
+	
+	private Date created;
 	
 	private List<FiddlerProcess> processes = new ArrayList<>();
 
