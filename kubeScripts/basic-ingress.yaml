@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: fanout-ingress
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /*
+        backend:
+          serviceName: ui-service
+          servicePort: 80
+      - path: /api/*
+        backend:
+          serviceName: spring-service
+          servicePort: 8080

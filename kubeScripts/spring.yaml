@@ -1,0 +1,55 @@
+---
+apiVersion: "extensions/v1beta1"
+kind: "Deployment"
+metadata:
+  name: "spring"
+  namespace: "default"
+  labels:
+    app: "spring"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "spring"
+  template:
+    metadata:
+      labels:
+        app: "spring"
+    spec:
+      containers:
+      - name: "spring-application"
+        image: "gcr.io/fiddler/spring-application:latest"
+        env:
+        - name: MONGO_HOST
+          value: mongo-service
+---
+apiVersion: "autoscaling/v1"
+kind: "HorizontalPodAutoscaler"
+metadata:
+  name: "spring-hpa"
+  namespace: "default"
+  labels:
+    app: "spring"
+spec:
+  scaleTargetRef:
+    kind: "Deployment"
+    name: "spring"
+    apiVersion: "apps/v1beta1"
+  minReplicas: 1
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 80
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "spring-service"
+  namespace: "default"
+  labels:
+    app: "spring"
+spec:
+  ports:
+  - protocol: "TCP"
+    port: 8080
+  selector:
+    app: "spring"
+  type: "NodePort"
