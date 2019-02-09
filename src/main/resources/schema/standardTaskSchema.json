@@ -1,0 +1,114 @@
+{
+   "$schema":"http://json-schema.org/draft-07/schema#",
+   "$id":"https://raw.githubusercontent.com/wryan/FiddlerSchemas/master/src/schemas/json/standardTaskSchema.json",
+   "title":"Task",
+   "description":"Basic task data",
+   "type":"object",
+   "required":[
+      "taskId",
+      "taskTitle"
+   ],
+   "properties":{
+      "taskId":{
+         "description":"A unique identifier for a task",
+         "type":"string",
+         "$comment":"This is a GUID, generated when a task is instantiated"
+      },
+      "taskTitle":{
+         "description":"Title of the task",
+         "type":"string",
+         "$comment":"This value is defined during creation of a process template."
+      },
+      "taskDescription":{
+         "description":"Description of the task",
+         "type":"string",
+         "$comment":"This value is defined during creation of a process template."
+      },
+      "taskReferenceList":{
+         "description":"Reference data to support completion of the task",
+         "type":"array",
+         "items":{
+            "$ref":"#/definitions/taskReferenceObject"
+         },
+         "$comment":"Array of task reference objects. These values are defined during creation of a process template."
+      },
+      "taskApplicationURI":{
+         "description":"URI for supporting applications to help complete task. Value is defined during process tempalte creation.",
+         "type":"string",
+         "$comment":"This provides user access to an application that can help them complete their task. Value is defined during process tempalte creation."
+      },
+      "taskStatusHistory":{
+         "description":"History of the status of the task",
+         "type":"array",
+         "items":{
+            "$ref":"#/definitions/taskStatusObject"
+         },
+         "$comment":"Each time status of task changes, insert Task Status Object into this array. See taskStatusObject definition for more information."
+      },
+      "taskRoles":{
+         "description":"Organizational roles responsible for completing this task.",
+         "type":"array",
+         "items":{
+            "type":"string"
+         },
+         "$comment":"Identifies organizational roles that are expected to complete this task. Recommend assigning tasks to roles whenever possible and only to people when required by use case."
+      },
+      "taskOwners":{
+         "description":"Individuals  responsible for completing this task.",
+         "type":"array",
+         "items":{
+            "type":"string"
+         },
+         "$comment":"Identifies people that are expected to complete this task. Recommend assigning tasks to roles whenever possible and only to people when required by use case."
+      }
+   },
+   "definitions":{
+      "taskStatusObject":{
+         "description":"Current status of the task, date status was achieved, and party responsible for status",
+         "type":"object",
+         "properties":{
+            "statusValue":{
+               "description":"Status of the task",
+               "type":"string",
+               "$comment":"Initial value can be defined during process template creation or when task is instantiated. Value can be updated during process execution to relect change in status. Organization may wish to define acceptable values."
+            },
+            "statusDate":{
+               "description":"Date status of the task was achieved",
+               "type":"number",
+               "$comment":"Value should be set when status is updated. Recommend adopting UNIX Epoch time."
+            },
+            "statusOwner":{
+               "description":"Party responsible for setting status value",
+               "type":"string",
+               "$comment":"Value should be set when status is updated."
+            }
+         }
+      },
+      "taskReferenceObject":{
+         "description":"Reference objects provide the name, description, type, and URI for materials that can help a user complete a task",
+         "type":"object",
+         "properties":{
+            "referenceName":{
+               "description":"Name of the reference item",
+               "type":"string",
+               "$comment":"This value is defined during creation of a process template."
+            },
+            "referenceDescription":{
+               "description":"Description of the reference item",
+               "type":"string",
+               "$comment":"This value is defined during creation of a process template."
+            },
+            "referenceType":{
+               "description":"Type of reference item",
+               "type":"string",
+               "$comment":"This value is defined during creation of a process template."
+            },
+            "referenceURI":{
+               "description":"URI to access reference item",
+               "type":"string",
+               "$comment":"This value is defined during creation of a process template."
+            }
+         }
+      }
+   }
+}

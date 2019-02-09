@@ -1,0 +1,83 @@
+{
+   "$schema":"http://json-schema.org/draft-07/schema#",
+   "$id":"https://raw.githubusercontent.com/wryan/FiddlerSchemas/master/src/schemas/json/standardTeamSchema.json",
+   "title":"Project Team",
+   "description":"Basic team structure for a project",
+   "type":"object",
+   "required":[
+      "teamID",
+      "teamTitle"
+   ],
+   "properties":{
+      "teamId":{
+         "description":"A unique identifier for a team",
+         "type":"string",
+         "$comment":"This is a GUID, generated when a team is instantiated."
+      },
+      "teamTitle":{
+         "description":"Title of the team",
+         "type":"string",
+         "$comment":"This value is defined during creation of a team template."
+      },
+      "teamDescription":{
+         "description":"Description of the team",
+         "type":"string",
+         "$comment":"This value is defined during creation of a team template."
+      },
+      "teamRoleList":{
+         "description":"List of team roles and people assigned to that role",
+         "type":"array",
+         "items":{
+            "$ref":"#/definitions/teamRoleObject"
+         },
+         "$comment":"Array of team member objects. These values are defined during creation of a process template."
+      }
+   },
+   "definitions":{
+      "teamRoleObject":{
+         "description":"Team roles and people assigned to role",
+         "type":"object",
+         "properties":{
+            "teamRole":{
+               "description":"Name of role",
+               "type":"string",
+               "$comment":"Values are defined during team template creation."
+            },
+            "teamMembersInRole":{
+               "description":"List of people assigned to role and dates they began and ended in role ",
+               "type":"array",
+               "items":{
+                  "$ref":"#/definitions/teamMemberObject"
+               },
+               "$comment":"Team members can added to role after team is instantiated"
+            }
+         }
+      },
+      "teamMemberObject":{
+         "description":"People on a team and dates on the team",
+         "type":"object",
+         "properties":{
+            "teamMemberName":{
+               "description":"Name of person on team",
+               "type":"string",
+               "$comment":"Value is set when person is added to team"
+            },
+            "teamMemberID":{
+               "description":"ID of person on team",
+               "type":"string",
+               "$comment":"Value is set when person is added to team"
+            },
+            "teamMemberStartDate":{
+               "description":"Date person joins team",
+               "type":"date",
+               "$comment":"Value is set when person is added to team"
+            },
+            "teamMemberEndDate":{
+               "description":"Date person leaves team",
+               "type":"date",
+               "$comment":"Value is set when person leaves team"
+            }
+         }
+      }
+   }
+}

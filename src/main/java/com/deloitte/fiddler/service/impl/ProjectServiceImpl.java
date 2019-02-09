@@ -6,8 +6,8 @@ import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.deloitte.fiddler.model.FiddlerProject;
-import com.deloitte.fiddler.model.FiddlerTask;
+import com.deloitte.fiddler.model.StandardProjectInformationSchema;
+import com.deloitte.fiddler.model.StandardTaskSchema;
 import com.deloitte.fiddler.repository.ProjectRepository;
 import com.deloitte.fiddler.service.ProjectService;
 import com.deloitte.fiddler.util.WebCaller;
@@ -25,8 +25,8 @@ public class ProjectServiceImpl implements ProjectService {
 		this.wc = wcL;
 	}
 
-	public FiddlerProject getProjectByID(String id) throws NoSuchElementException {
-		return this.pr.findById(id).get();
+	public StandardProjectInformationSchema getProjectByID(String id) throws NoSuchElementException {
+		return this.pr.findByprojectId(id);
 	}
 
 	public boolean deleteProject(String id) {
@@ -36,36 +36,39 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public FiddlerProject createProject(String url) {
-		return this.pr.save(wc.getWebEntity(FiddlerProject.class, url));
+	public StandardProjectInformationSchema createProject(String url) {
+		StandardProjectInformationSchema s = wc.getWebEntity(StandardProjectInformationSchema.class, url);
+		s.setProjectId(java.util.UUID.randomUUID().toString());
+//		s.setProjectStatus("Open");
+		return this.pr.save(s);
 	}
 
 	@Override
-	public FiddlerProject updateProject(FiddlerProject fp) {
+	public StandardProjectInformationSchema updateProject(StandardProjectInformationSchema fp) {
 		this.checkForProjectClosure(fp);
 		return this.pr.save(fp);
 
 	}
 
 	@Override
-	public List<FiddlerProject> getAllProjects() {
+	public List<StandardProjectInformationSchema> getAllProjects() {
 		return this.pr.findAll();
 	}
 
 	@Override
-	public FiddlerTask updateTask(FiddlerTask ft, String fp, int processIndex, int taskIndex) {
+	public StandardTaskSchema updateTask(StandardTaskSchema ft, String fp, int processIndex, int taskIndex) {
 		
-		FiddlerProject proj = this.pr.findById(fp).get();
-		proj.getProcesses().get(processIndex).getTasks().set(taskIndex, ft);
+		StandardProjectInformationSchema proj = this.pr.findById(fp).get();
+		proj.getProcessesArray().get(processIndex).getSubProcessTasks().set(taskIndex, ft);
 		this.checkForProjectClosure(proj);
-		return this.pr.save(proj).getProcesses().get(processIndex).getTasks().get(taskIndex);
+		return this.pr.save(proj).getProcessesArray().get(processIndex).getSubProcessTasks().get(taskIndex);
 	
 	}
 	
-	private FiddlerProject checkForProjectClosure(FiddlerProject fp) {
-		if(fp.getProcesses().stream().allMatch(a -> 
-		a.getTasks().stream().allMatch(b -> 
-		b.getTaskStatus().equals("Closed")))) {
+	private StandardProjectInformationSchema checkForProjectClosure(StandardProjectInformationSchema fp) {
+		if(fp.getProcessesArray().stream().allMatch(a -> 
+		a.getSubProcessTasks().stream().allMatch(b -> 
+		b.getTaskStatusHistory().get(b.getTaskStatusHistory().size()-1).getStatusValue().equals("Closed")))) {
 			fp.setProjectStatus("Closed");
 		}
 		return fp;

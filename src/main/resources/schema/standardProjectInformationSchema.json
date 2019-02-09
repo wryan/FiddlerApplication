@@ -1,0 +1,60 @@
+{
+   "$schema":"http://json-schema.org/draft-07/schema#",
+   "$id":"https://raw.githubusercontent.com/wryan/FiddlerSchemas/master/src/schemas/json/standardProjectInfoSchema.json",
+   "title":"Project Information",
+   "description":"Basic project with metadata, processes, and tasks",
+   "type":"object",
+   "properties":{
+      "projectId":{
+         "description":"The unique identifier for a project",
+         "type":"string",
+         "$comment":"This is a GUID, generated when a project is instantiated."
+      },
+      "projectType":{
+         "description":"Type of project",
+         "type":"string",
+         "$comment":"This value is defined during creation of a project template."
+      },
+      "projectName":{
+         "description":"Unique, human readable name of the project",
+         "type":"string",
+         "$comment":"This value is defined when a project is instantiated."
+      },
+      "projectStatus":{
+         "description":"Status of the project",
+         "type":"string",
+         "$comment":"This value is defined when a project is instantiated."
+      },
+      "teamTemplateURI":{
+         "description":"URI of the project team template associated with this type of project",
+         "type":"string",
+         "$comment":"This value is defined during creation of a project template."
+      },
+      "teamID":{
+         "description":"ID of the project team created for this project",
+         "type":"string",
+         "$comment":"This value is defined when a project is instantiated, using the instantiated teamID."
+      },
+      "processesArray":{
+         "description":"Set of categorized subprocesses",
+         "type":"array",
+         "items":{
+            "type":"object",
+            "properties":{
+               "subProcessCategory":{
+                  "description":"Category for associated tasks that define a subprocess",
+                  "type":"string",
+                  "$comment":"These values are defined during creation of a project template."
+               },
+               "subProcessTasks":{
+                  "description":"Associated tasks that define a subprocess",
+                  "type":"array",
+                  "items":{
+                     "$ref":"standardTaskSchema.json"
+                  }
+               }
+            }
+         }
+      }
+   }
+}

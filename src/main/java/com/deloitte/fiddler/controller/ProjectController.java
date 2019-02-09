@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.deloitte.fiddler.model.FiddlerProject;
-import com.deloitte.fiddler.model.FiddlerTask;
 import com.deloitte.fiddler.model.ProjectInitializer;
+import com.deloitte.fiddler.model.StandardProjectInformationSchema;
+import com.deloitte.fiddler.model.StandardTaskSchema;
 import com.deloitte.fiddler.service.ProjectService;
 
 @RestController
@@ -24,31 +24,31 @@ public class ProjectController {
 	ProjectService ps;
 
 	@PostMapping
-	public FiddlerProject createNewProject(@RequestBody ProjectInitializer pj) {
+	public StandardProjectInformationSchema createNewProject(@RequestBody ProjectInitializer pj) {
 		return this.ps.createProject(pj.getJsonURL());
 	}
 
 	@GetMapping
-	public List<FiddlerProject> getProjects() {
+	public List<StandardProjectInformationSchema> getProjects() {
 		return this.ps.getAllProjects();
 
 	}
 
 	@GetMapping("/{id}")
-	public FiddlerProject getProjectById(@PathVariable String id) {
+	public StandardProjectInformationSchema getProjectById(@PathVariable String id) {
 		return this.ps.getProjectByID(id);
 
 	}
 
 	@PutMapping("/{id}")
-	public FiddlerProject updateProject(@RequestBody FiddlerProject fp) {
+	public StandardProjectInformationSchema updateProject(@RequestBody StandardProjectInformationSchema fp) {
 		return this.ps.updateProject(fp);
 
 	}
 
 	@PostMapping("/{id}/{procId}/{taskId}")
-	public FiddlerTask updateTask(@PathVariable String id, @PathVariable int procId, 
-			@PathVariable int taskId, @RequestBody FiddlerTask ft) {
+	public StandardTaskSchema updateTask(@PathVariable String id, @PathVariable int procId, 
+			@PathVariable int taskId, @RequestBody StandardTaskSchema ft) {
 		return this.ps.updateTask(ft, id, procId, taskId);
 		
 	}
