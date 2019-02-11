@@ -4,6 +4,7 @@
    "title":"Task",
    "description":"Basic task data",
    "type":"object",
+      "additionalProperties": false,
    "required":[
       "taskId",
       "taskTitle"
@@ -66,6 +67,7 @@
       "taskStatusObject":{
          "description":"Current status of the task, date status was achieved, and party responsible for status",
          "type":"object",
+         "additionalProperties": false,
          "properties":{
             "statusValue":{
                "description":"Status of the task",
@@ -87,6 +89,7 @@
       "taskReferenceObject":{
          "description":"Reference objects provide the name, description, type, and URI for materials that can help a user complete a task",
          "type":"object",
+         "additionalProperties": false,
          "properties":{
             "referenceName":{
                "description":"Name of the reference item",
