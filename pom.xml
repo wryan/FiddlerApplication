@@ -69,18 +69,24 @@
 			<groupId>com.fasterxml.jackson.module</groupId>
 			<artifactId>jackson-module-jsonSchema</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.kjetland</groupId>
+			<artifactId>mbknor-jackson-jsonschema_2.12</artifactId>
+			<version>1.0.32</version>
+		</dependency>
 
 		<dependency>
 			<groupId>com.github.everit-org.json-schema</groupId>
 			<artifactId>org.everit.json.schema</artifactId>
 			<version>1.11.0</version>
 		</dependency>
-		
+
+
 		<dependency>
-    <groupId>commons-io</groupId>
-    <artifactId>commons-io</artifactId>
-    <version>2.5</version>
-</dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.5</version>
+		</dependency>
 
 
 	</dependencies>
@@ -106,7 +112,7 @@
 					<targetPackage>com.deloitte.fiddler.model</targetPackage>
 					<includeAdditionalProperties>false</includeAdditionalProperties>
 					<includeJsr303Annotations>true</includeJsr303Annotations>
-					
+
 				</configuration>
 				<executions>
 					<execution>

@@ -52,7 +52,7 @@
                   "description":"Associated tasks that define a subprocess",
                   "type":"array",
                   "items":{
-                     "$ref":"classpath://schema/standardTaskSchema.json"
+                     "$ref":"standardTaskSchema.json"
                   }
                }
             }
