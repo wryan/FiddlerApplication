@@ -7,7 +7,7 @@ import com.deloitte.fiddler.common.StandardTaskSchema;
 
 public interface ProjectService {
 	
-	public StandardProjectInformationSchema createProject(String url);
+	public StandardProjectInformationSchema createProject(StandardProjectInformationSchema p);
 	
 	public List<StandardProjectInformationSchema> getAllProjects();
 	

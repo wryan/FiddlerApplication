@@ -10,23 +10,16 @@ import com.deloitte.fiddler.common.StandardProjectInformationSchema;
 import com.deloitte.fiddler.common.StandardTaskSchema;
 import com.deloitte.fiddler.repository.ProjectRepository;
 import com.deloitte.fiddler.service.ProjectService;
-import com.deloitte.fiddler.util.JSONvalidator;
-import com.deloitte.fiddler.util.WebCaller;
 
 @Component
 public class ProjectServiceImpl implements ProjectService {
 
 	ProjectRepository pr;
 
-	WebCaller wc;
-
-	JSONvalidator jsv;
 
 	@Autowired
-	public ProjectServiceImpl(ProjectRepository prL, WebCaller wcL, JSONvalidator jsvL) {
+	public ProjectServiceImpl(ProjectRepository prL) {
 		this.pr = prL;
-		this.wc = wcL;
-		this.jsv = jsvL;
 
 	}
 
@@ -41,13 +34,10 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public StandardProjectInformationSchema createProject(String url) {
+	public StandardProjectInformationSchema createProject(StandardProjectInformationSchema p) {
 
-
-			this.jsv.validateJSON(StandardProjectInformationSchema.class, wc.getWebEntity(Object.class, url));
-			StandardProjectInformationSchema s = wc.getWebEntity(StandardProjectInformationSchema.class, url);
-			s.setProjectId(java.util.UUID.randomUUID().toString());
-			return this.pr.save(s);
+			p.setProjectId(java.util.UUID.randomUUID().toString());
+			return this.pr.save(p);
 
 		
 	}
