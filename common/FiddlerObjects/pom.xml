@@ -2,8 +2,8 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.deloitte.fiddler.common</groupId>
-	<artifactId>FiddlerObjects</artifactId>
+	<groupId>com.deloitte.fiddler</groupId>
+	<artifactId>fiddler-common</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<parent>
@@ -33,7 +33,7 @@
 				<version>1.0.0</version>
 				<configuration>
 					<sourceDirectory>${basedir}/src/main/resources/schema</sourceDirectory>
-					<outputDirectory>${basedir}/src/main/java</outputDirectory> 
+<!-- 					<outputDirectory>${basedir}/src/main/java</outputDirectory>  -->
 					<targetPackage>com.deloitte.fiddler.common</targetPackage>
 					<removeOldOutput>true</removeOldOutput>
 					<includeAdditionalProperties>false</includeAdditionalProperties>
