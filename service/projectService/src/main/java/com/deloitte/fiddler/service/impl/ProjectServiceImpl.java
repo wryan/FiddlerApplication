@@ -3,12 +3,11 @@ package com.deloitte.fiddler.service.impl;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import org.everit.json.schema.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.deloitte.fiddler.model.StandardProjectInformationSchema;
-import com.deloitte.fiddler.model.StandardTaskSchema;
+import com.deloitte.fiddler.common.StandardProjectInformationSchema;
+import com.deloitte.fiddler.common.StandardTaskSchema;
 import com.deloitte.fiddler.repository.ProjectRepository;
 import com.deloitte.fiddler.service.ProjectService;
 import com.deloitte.fiddler.util.JSONvalidator;

@@ -1,8 +1,10 @@
 spring:
+  application:
+     name: projects-service
   data:
     mongodb:
  #     host: ${MONGO_HOST}
-      host: 192.168.99.100
+      host: 192.168.99.100:27017
     rest:
       detection-strategy: annotated
   autoconfigure:

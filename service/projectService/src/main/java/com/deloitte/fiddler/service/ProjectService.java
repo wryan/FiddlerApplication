@@ -2,8 +2,8 @@ package com.deloitte.fiddler.service;
 
 import java.util.List;
 
-import com.deloitte.fiddler.model.StandardProjectInformationSchema;
-import com.deloitte.fiddler.model.StandardTaskSchema;
+import com.deloitte.fiddler.common.StandardProjectInformationSchema;
+import com.deloitte.fiddler.common.StandardTaskSchema;
 
 public interface ProjectService {
 	

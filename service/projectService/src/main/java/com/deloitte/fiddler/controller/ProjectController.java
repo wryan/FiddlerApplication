@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.deloitte.fiddler.model.ProjectInitializer;
-import com.deloitte.fiddler.model.StandardProjectInformationSchema;
-import com.deloitte.fiddler.model.StandardTaskSchema;
+import com.deloitte.fiddler.common.StandardProjectInformationSchema;
+import com.deloitte.fiddler.common.StandardTaskSchema;
 import com.deloitte.fiddler.service.ProjectService;
 
 @RestController
