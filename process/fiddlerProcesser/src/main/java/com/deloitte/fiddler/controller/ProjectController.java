@@ -26,12 +26,12 @@ public class ProjectController {
 	public StandardProjectInformationSchema createNewProject(@RequestBody String url) {
 		return this.ps.createProject(url);
 	}
-//
-//	@GetMapping
-//	public List<StandardProjectInformationSchema> getProjects() {
-//		return this.ps.getAllProjects();
-//
-//	}
+
+	@GetMapping
+	public List<StandardProjectInformationSchema> getProjects() {
+		return this.ps.getAllProjects();
+
+	}
 
 	@GetMapping("/{id}")
 	public StandardProjectInformationSchema getProjectById(@PathVariable String id) {

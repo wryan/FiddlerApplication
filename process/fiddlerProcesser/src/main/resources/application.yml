@@ -21,6 +21,8 @@ fiddler:
       endpoints:
         get: /api/project/
         create: /api/project/
+        update: /api/project/
+        delete: /api/project/
     verify: 
       host: http://localhost:8081
 #      host: ${PROJECT_HOST}

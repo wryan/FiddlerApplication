@@ -24,7 +24,12 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	public StandardProjectInformationSchema getProjectByID(String id) throws NoSuchElementException {
-		return this.pr.findByprojectId(id);
+		StandardProjectInformationSchema proj = null;
+			proj = this.pr.findByprojectId(id);
+			if(proj == null) {
+				throw new NoSuchElementException("cannot find project with id " + id);
+			}
+		return proj;
 	}
 
 	public boolean deleteProject(String id) {

@@ -39,7 +39,7 @@ public class ProjectController {
 
 	}
 
-	@PutMapping("/{id}")
+	@PutMapping()
 	public StandardProjectInformationSchema updateProject(@RequestBody StandardProjectInformationSchema fp) {
 		return this.ps.updateProject(fp);
 
@@ -49,6 +49,11 @@ public class ProjectController {
 	public StandardTaskSchema updateTask(@PathVariable String id, @PathVariable int procId, 
 			@PathVariable int taskId, @RequestBody StandardTaskSchema ft) {
 		return this.ps.updateTask(ft, id, procId, taskId);
+		
+	}
+	@PostMapping("/{id}/delete")
+	public boolean deleteTask(@PathVariable String id) {
+		return this.ps.deleteProject(id);
 		
 	}
 }
