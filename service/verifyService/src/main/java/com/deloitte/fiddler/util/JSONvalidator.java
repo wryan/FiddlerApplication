@@ -2,7 +2,6 @@ package com.deloitte.fiddler.util;
 
 import java.util.stream.Collectors;
 
-
 import org.everit.json.schema.Schema;
 import org.everit.json.schema.ValidationException;
 import org.everit.json.schema.loader.SchemaClient;
@@ -10,7 +9,6 @@ import org.everit.json.schema.loader.SchemaLoader;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
-
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -49,7 +47,8 @@ public class JSONvalidator {
 		      .forEach(System.out::println);
 			   String s =  e.getCausingExceptions().stream().map(a -> a.getMessage() + "<br>").collect(Collectors.joining());
 			  
-			  throw new java.lang.Error(s);
+			  throw new ValidationException(schema, s, s, s);
+			  
 		}
 
 	    return false;

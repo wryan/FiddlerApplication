@@ -1,0 +1,28 @@
+spring:
+  application:
+     name: fiddler-processer
+  data:
+    rest:
+      detection-strategy: annotated
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+  jackson:
+    serialization:
+      write-dates-as-timestamps: true
+server:
+  port: 8080
+#  servlet:
+#    contextPath: /api
+fiddler:
+  services:
+    project: 
+      host: http://localhost:8082
+#      host: ${PROJECT_HOST}
+      endpoints:
+        get: /api/project/
+        create: /api/project/
+    verify: 
+      host: http://localhost:8081
+#      host: ${PROJECT_HOST}
+      endpoints:
+        verify: /api/verify/
