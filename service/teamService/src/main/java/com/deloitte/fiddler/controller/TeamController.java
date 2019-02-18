@@ -3,6 +3,8 @@ package com.deloitte.fiddler.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.deloitte.fiddler.common.StandardProjectInformationSchema;
-import com.deloitte.fiddler.common.StandardTaskSchema;
 import com.deloitte.fiddler.common.StandardTeamSchema;
 import com.deloitte.fiddler.service.TeamService;
 
@@ -24,31 +24,31 @@ public class TeamController {
 	TeamService ts;
 
 	@PostMapping
-	public StandardTeamSchema createNewTeam(@RequestBody StandardTeamSchema t) {
-		return this.ts.createTeam(t);
+	public ResponseEntity<StandardTeamSchema> createNewTeam(@RequestBody StandardTeamSchema t) {
+		return new ResponseEntity<StandardTeamSchema>(this.ts.createTeam(t), HttpStatus.CREATED);
 	}
 
 	@GetMapping
-	public List<StandardTeamSchema> getTeams() {
-		return this.ts.getAllTeams();
+	public ResponseEntity<List<StandardTeamSchema>> getTeams() {
+		return new ResponseEntity<List<StandardTeamSchema>>(this.ts.getAllTeams(), HttpStatus.OK);
 
 	}
 
 	@GetMapping("/{id}")
-	public StandardTeamSchema getTeamByID(@PathVariable String id) {
-		return this.ts.getTeamByID(id);
+	public ResponseEntity<StandardTeamSchema> getTeamByID(@PathVariable String id) {
+		return new ResponseEntity<StandardTeamSchema>(this.ts.getTeamByID(id), HttpStatus.OK);
 
 	}
 
 	@PutMapping()
-	public StandardTeamSchema updateTeam(@RequestBody StandardTeamSchema fp) {
-		return this.ts.updateTeam(fp);
+	public ResponseEntity<StandardTeamSchema> updateTeam(@RequestBody StandardTeamSchema fp) {
+		return new ResponseEntity<StandardTeamSchema>(this.ts.updateTeam(fp), HttpStatus.ACCEPTED);
 
 	}
 
 	@PostMapping("/{id}/delete")
-	public boolean deleteTeam(@PathVariable String id) {
-		return this.ts.deleteTeam(id);
+	public ResponseEntity<Boolean> deleteTeam(@PathVariable String id) {
+		return new ResponseEntity<Boolean>(this.ts.deleteTeam(id), HttpStatus.NO_CONTENT);
 		
 	}
 }

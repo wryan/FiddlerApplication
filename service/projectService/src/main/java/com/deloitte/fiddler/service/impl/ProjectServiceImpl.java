@@ -10,16 +10,23 @@ import com.deloitte.fiddler.common.StandardProjectInformationSchema;
 import com.deloitte.fiddler.common.StandardTaskSchema;
 import com.deloitte.fiddler.repository.ProjectRepository;
 import com.deloitte.fiddler.service.ProjectService;
+import com.google.cloud.datastore.Datastore;
+import com.google.cloud.datastore.DatastoreOptions;
 
 @Component
 public class ProjectServiceImpl implements ProjectService {
 
 	ProjectRepository pr;
+	
+    Datastore datastore;
+
+	
 
 
 	@Autowired
 	public ProjectServiceImpl(ProjectRepository prL) {
 		this.pr = prL;
+		this.datastore = DatastoreOptions.getDefaultInstance().getService();
 
 	}
 
