@@ -33,7 +33,7 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	public boolean deleteProject(String id) {
-		this.pr.deleteById(id);
+		this.pr.deleteByprojectId(id);
 		return true;
 
 	}
@@ -50,7 +50,9 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public StandardProjectInformationSchema updateProject(StandardProjectInformationSchema fp) {
 		this.checkForProjectClosure(fp);
+		this.deleteProject(fp.getProjectId());
 		return this.pr.save(fp);
+		
 
 	}
 
@@ -70,8 +72,8 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	private StandardProjectInformationSchema checkForProjectClosure(StandardProjectInformationSchema fp) {
-		if (fp.getProcessesArray().stream().allMatch(a -> a.getSubProcessTasks().stream().allMatch(b -> b
-				.getTaskStatusHistory().get(b.getTaskStatusHistory().size() - 1).getStatusValue().equals("Closed")))) {
+		if (fp.getProcessesArray().stream().allMatch(a -> a.getSubProcessTasks().stream().allMatch(b -> !b.getTaskStatusHistory().isEmpty() && 
+				b.getTaskStatusHistory().get(b.getTaskStatusHistory().size() - 1).getStatusValue().equals("Closed")))) {
 			fp.setProjectStatus("Closed");
 		}
 		return fp;

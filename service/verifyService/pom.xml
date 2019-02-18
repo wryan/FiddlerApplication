@@ -86,8 +86,8 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.deloitte.fiddler.common</groupId>
-			<artifactId>FiddlerObjects</artifactId>
+			<groupId>com.deloitte.fiddler</groupId>
+			<artifactId>fiddler-common</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>

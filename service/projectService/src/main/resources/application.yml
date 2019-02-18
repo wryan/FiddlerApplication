@@ -4,7 +4,7 @@ spring:
   data:
     mongodb:
  #     host: ${MONGO_HOST}
-      host: 192.168.99.100:27017
+ #     host: 192.168.99.100:27017
     rest:
       detection-strategy: annotated
   autoconfigure:

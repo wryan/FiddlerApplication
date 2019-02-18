@@ -38,6 +38,12 @@ public class ProjectController {
 		return this.ps.getProjectByID(id);
 
 	}
+	
+	@PostMapping("/{id}/team/{teamId}")
+	public StandardProjectInformationSchema setTeamID(@PathVariable String id, @PathVariable String teamId) {
+		return this.ps.setTeamID(id, teamId);
+
+	}
 //
 //	@PutMapping("/{id}")
 //	public StandardProjectInformationSchema updateProject(@RequestBody StandardProjectInformationSchema fp) {

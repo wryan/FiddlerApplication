@@ -10,5 +10,6 @@ import com.deloitte.fiddler.common.StandardProjectInformationSchema;
 public interface ProjectRepository extends MongoRepository<StandardProjectInformationSchema, String> {
 	
 	public StandardProjectInformationSchema findByprojectId(String id);
+	public void deleteByprojectId(String id);
 
 }

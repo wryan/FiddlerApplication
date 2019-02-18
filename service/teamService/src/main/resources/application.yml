@@ -1,7 +1,11 @@
 spring:
   application:
-     name: verify-service
+     name: team-service
   data:
+    mongodb:
+ #     host: ${MONGO_HOST}
+ #     host: 192.168.99.100:27018
+       port: 27018
     rest:
       detection-strategy: annotated
   autoconfigure:
@@ -10,6 +14,6 @@ spring:
     serialization:
       write-dates-as-timestamps: true
 server:
-  port: 8084
+  port: 8083
 #  servlet:
 #    contextPath: /api

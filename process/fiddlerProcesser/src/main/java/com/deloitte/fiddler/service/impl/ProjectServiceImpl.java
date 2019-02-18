@@ -13,7 +13,11 @@ import org.springframework.web.client.RestTemplate;
 
 import com.deloitte.fiddler.common.StandardProjectInformationSchema;
 import com.deloitte.fiddler.common.StandardTaskSchema;
+import com.deloitte.fiddler.common.StandardTeamSchema;
 import com.deloitte.fiddler.service.ProjectService;
+import com.deloitte.fiddler.service.TeamService;
+
+import ch.qos.logback.core.net.SyslogOutputStream;
 
 @Component
 public class ProjectServiceImpl implements ProjectService {
@@ -21,11 +25,14 @@ public class ProjectServiceImpl implements ProjectService {
 	RestTemplate restTemplate;
 
 	Environment env;
+	
+	TeamService ts;
 
 	@Autowired
-	public ProjectServiceImpl(Environment envL) {
+	public ProjectServiceImpl(Environment envL, TeamService tsL) {
 		this.restTemplate = new RestTemplate();
 		this.env = envL;
+		this.ts = tsL;
 
 	}
 
@@ -84,6 +91,16 @@ public class ProjectServiceImpl implements ProjectService {
 				+ this.env.getProperty("fiddler.services.project.endpoints.update") + fp + "/" + processIndex + "/"
 				+ taskIndex, ft, StandardTaskSchema.class).getBody();
 
+	}
+
+	@Override
+	public StandardProjectInformationSchema setTeamID(String projectId, String teamId) {
+		StandardTeamSchema team = this.ts.getTeamByID(teamId);
+		StandardProjectInformationSchema proj = this.getProjectByID(projectId);
+		System.out.println(team.getTeamId() + " , " +  proj.getProjectId());
+		proj.setTeamID(team.getTeamId());
+		return this.updateProject(proj);
+		
 	}
 
 }
