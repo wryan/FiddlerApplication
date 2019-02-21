@@ -51,4 +51,10 @@ public class TeamController {
 		return new ResponseEntity<Boolean>(this.ts.deleteTeam(id), HttpStatus.NO_CONTENT);
 		
 	}
+	
+	@PostMapping("/{id}/{roleIndex}/{personId}")
+	public ResponseEntity<StandardTeamSchema> addPersonToTeam(@PathVariable String id, @PathVariable int roleIndex, @PathVariable String personId) {
+		return new ResponseEntity<StandardTeamSchema>(this.ts.addPersonToRole(id, roleIndex, personId), HttpStatus.ACCEPTED);
+		
+	}
 }

@@ -43,13 +43,14 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 	@Override
-	public TeamMemberObject updatePerson(TeamMemberObject p) {
+	public TeamMemberObject updatePerson(TeamMemberObject p) throws NoSuchElementException{
+		this.deletePerson(this.getPersonById(p.getTeamMemberID()).getTeamMemberID());
 		return this.pr.save(p);
 	}
 
 	@Override
 	public boolean deletePerson(String id) {
-		this.pr.deleteById(id);
+		this.pr.deleteByteamMemberID(id);
 		return true;
 	}
 

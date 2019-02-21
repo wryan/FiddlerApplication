@@ -2,6 +2,7 @@ package com.deloitte.fiddler.service.impl;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -69,14 +70,19 @@ public class TeamServiceImpl implements TeamService {
 	}
 
 	@Override
-	public StandardTeamSchema addPersonToRole(StandardTeamSchema p, String role, TeamMemberObject m) {
+	public StandardTeamSchema addPersonToRole(String teamId, int roleIndex, String personId) {
 		
-		//todo
-//		TeamMemberObject tm = this.ps.getPersonById(m.getTeamMemberID());
-//		StandardTeamSchema team = this.tr.findByteamId(p.getTeamId());
-////		boolean b = true;
-//		team.getTeamRoleList().stream().filter(a -> a.getTeamRole().equals(role))
-//				.findFirst().get().getTeamMembersInRole().stream().
+		
+		
+		TeamMemberObject tm = this.ps.getPersonById(personId);
+		StandardTeamSchema team = this.tr.findByteamId(teamId);
+		TeamRoleObject roleObject = team.getTeamRoleList().get(roleIndex);
+		if(!roleObject.getTeamMembersInRole().stream().anyMatch(a -> a.equals(tm))) {
+			roleObject.getTeamMembersInRole().add(tm);
+			return this.tr.save(team);
+		} else {
+			throw new NoSuchElementException(tm.getTeamMemberName() + " is already in the role " + roleObject.getTeamRole());
+		}
 	}
 
 

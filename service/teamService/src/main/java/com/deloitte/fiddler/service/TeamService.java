@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import com.deloitte.fiddler.common.StandardTeamSchema;
-import com.deloitte.fiddler.common.TeamMemberObject;
 import com.deloitte.fiddler.common.TeamRoleObject;
 
 
@@ -20,7 +19,7 @@ public interface TeamService {
 	
 	public boolean deleteTeam(String id);
 	
-	public StandardTeamSchema addPersonToRole(StandardTeamSchema p, String role, TeamMemberObject m);
+	public StandardTeamSchema addPersonToRole(String teamId, int roleIndex, String personId);
 	
 	public TeamRoleObject getRoleFromTeam(StandardTeamSchema p, String role);
 	
