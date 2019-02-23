@@ -30,12 +30,11 @@ public class TeamServiceImpl implements TeamService {
 	}
 
 	public StandardTeamSchema getTeamByID(String id) throws NoSuchElementException {
-		StandardTeamSchema proj = null;
-			proj = this.tr.findByteamId(id);
-			if(proj == null) {
+		Optional<StandardTeamSchema> team  = this.tr.findById(id);
+			if(!team.isPresent()) {
 				throw new NoSuchElementException("cannot find team with id " + id);
 			}
-		return proj;
+		return team.get();
 	}
 
 	public boolean deleteTeam(String id) {
@@ -47,37 +46,35 @@ public class TeamServiceImpl implements TeamService {
 	@Override
 	public StandardTeamSchema createTeam(StandardTeamSchema p) {
 
-			p.setTeamId(java.util.UUID.randomUUID().toString());
-			return this.tr.save(p);
+		p.setTeamId(null);
+		return this.tr.save(p);
 
 		
 	}
 
-	@Override
 	public StandardTeamSchema updateTeam(StandardTeamSchema fp) {
+		this.getTeamByID(fp.getTeamId());
 		return this.tr.save(fp);
 
 	}
 
-	@Override
 	public List<StandardTeamSchema> getAllTeams() {
 		return this.tr.findAll();
 	}
 	
-	@Override
-	public TeamRoleObject getRoleFromTeam(StandardTeamSchema p, String role) {
-		return this.tr.findByteamId(p.getTeamId()).getTeamRoleList().stream().filter(a -> a.getTeamRole().equals(role)).findFirst().orElseThrow(NoSuchElementException::new);
+	public TeamRoleObject getRoleFromTeam(String teamId, int roleIndex) {
+		return this.getTeamByID(teamId).getTeamRoleList().get(roleIndex);
 	}
 
-	@Override
 	public StandardTeamSchema addPersonToRole(String teamId, int roleIndex, String personId) {
 		
 		
 		
 		TeamMemberObject tm = this.ps.getPersonById(personId);
-		StandardTeamSchema team = this.tr.findByteamId(teamId);
+		StandardTeamSchema team = this.getTeamByID(teamId);
 		TeamRoleObject roleObject = team.getTeamRoleList().get(roleIndex);
-		if(!roleObject.getTeamMembersInRole().stream().anyMatch(a -> a.equals(tm))) {
+		if(!roleObject.getTeamMembersInRole().stream().anyMatch(a -> a.getTeamMemberID().equals(tm.getTeamMemberID()))) {
+
 			roleObject.getTeamMembersInRole().add(tm);
 			return this.tr.save(team);
 		} else {

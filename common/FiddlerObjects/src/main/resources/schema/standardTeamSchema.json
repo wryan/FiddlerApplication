@@ -72,12 +72,12 @@
             },
             "teamMemberStartDate":{
                "description":"Date person joins team",
-               "type":"date",
+               "type":"integer",
                "$comment":"Value is set when person is added to team"
             },
             "teamMemberEndDate":{
                "description":"Date person leaves team",
-               "type":"date",
+               "type":"integer",
                "$comment":"Value is set when person leaves team"
             }
          }

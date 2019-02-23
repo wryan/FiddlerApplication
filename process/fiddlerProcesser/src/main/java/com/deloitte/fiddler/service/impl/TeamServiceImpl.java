@@ -11,10 +11,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import com.deloitte.fiddler.common.StandardProjectInformationSchema;
-import com.deloitte.fiddler.common.StandardTaskSchema;
 import com.deloitte.fiddler.common.StandardTeamSchema;
-import com.deloitte.fiddler.service.ProjectService;
+import com.deloitte.fiddler.common.TeamRoleObject;
 import com.deloitte.fiddler.service.TeamService;
 
 @Component
@@ -80,6 +78,23 @@ public class TeamServiceImpl implements TeamService {
 				this.env.getProperty("fiddler.services.team.host")
 						+ this.env.getProperty("fiddler.services.team.endpoints.get"),
 						StandardTeamSchema[].class).getBody());
+	}
+
+
+	@Override
+	public StandardTeamSchema addPersonToRole(String teamId, int roleIndex, String personId) {
+		return this.restTemplate.postForEntity(this.env.getProperty("fiddler.services.team.host")
+						+ this.env.getProperty("fiddler.services.team.endpoints.get") + teamId + "/" + 
+				roleIndex + "/" + personId, null, StandardTeamSchema.class).getBody();
+	}
+
+
+	@Override
+	public TeamRoleObject getRoleFromTeam(String teamId, int roleIndex) {
+		return this.restTemplate.getForObject(
+				this.env.getProperty("fiddler.services.team.host")
+						+ this.env.getProperty("fiddler.services.team.endpoints.get") + teamId + "/" + roleIndex,
+						TeamRoleObject.class);
 	}
 
 

@@ -21,6 +21,6 @@ public interface TeamService {
 	
 	public StandardTeamSchema addPersonToRole(String teamId, int roleIndex, String personId);
 	
-	public TeamRoleObject getRoleFromTeam(StandardTeamSchema p, String role);
+	public TeamRoleObject getRoleFromTeam(String teamId, int roleIndex);
 	
 }

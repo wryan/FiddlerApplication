@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.deloitte.fiddler.common.StandardTeamSchema;
+import com.deloitte.fiddler.common.TeamRoleObject;
 import com.deloitte.fiddler.service.TeamService;
 
 @RestController
@@ -49,6 +50,12 @@ public class TeamController {
 	@PostMapping("/{id}/delete")
 	public ResponseEntity<Boolean> deleteTeam(@PathVariable String id) {
 		return new ResponseEntity<Boolean>(this.ts.deleteTeam(id), HttpStatus.NO_CONTENT);
+		
+	}
+	
+	@PostMapping("/{id}/{roleIndex}")
+	public ResponseEntity<TeamRoleObject> getRoleFromTeam(@PathVariable String id, @PathVariable int roleIndex) {
+		return new ResponseEntity<TeamRoleObject>(this.ts.getRoleFromTeam(id, roleIndex), HttpStatus.OK);
 		
 	}
 	

@@ -17,7 +17,6 @@ import com.deloitte.fiddler.common.StandardTeamSchema;
 import com.deloitte.fiddler.service.ProjectService;
 import com.deloitte.fiddler.service.TeamService;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 
 @Component
 public class ProjectServiceImpl implements ProjectService {

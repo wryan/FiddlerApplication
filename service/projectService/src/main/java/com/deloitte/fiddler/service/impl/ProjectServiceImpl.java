@@ -2,6 +2,7 @@ package com.deloitte.fiddler.service.impl;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,11 +18,8 @@ import com.google.cloud.datastore.DatastoreOptions;
 public class ProjectServiceImpl implements ProjectService {
 
 	ProjectRepository pr;
-	
-    Datastore datastore;
 
-	
-
+	Datastore datastore;
 
 	@Autowired
 	public ProjectServiceImpl(ProjectRepository prL) {
@@ -31,35 +29,31 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	public StandardProjectInformationSchema getProjectByID(String id) throws NoSuchElementException {
-		StandardProjectInformationSchema proj = null;
-			proj = this.pr.findByprojectId(id);
-			if(proj == null) {
-				throw new NoSuchElementException("cannot find project with id " + id);
-			}
-		return proj;
+		Optional<StandardProjectInformationSchema> proj = this.pr.findById(id);
+		if (!proj.isPresent()) {
+			throw new NoSuchElementException("cannot find project with id " + id);
+		}
+		return proj.get();
 	}
 
 	public boolean deleteProject(String id) {
-		this.pr.deleteByprojectId(id);
+		this.pr.deleteById(id);
 		return true;
 
 	}
 
 	@Override
 	public StandardProjectInformationSchema createProject(StandardProjectInformationSchema p) {
+		p.setProjectId(null);
+		return this.pr.save(p);
 
-			p.setProjectId(java.util.UUID.randomUUID().toString());
-			return this.pr.save(p);
-
-		
 	}
 
 	@Override
 	public StandardProjectInformationSchema updateProject(StandardProjectInformationSchema fp) {
 		this.checkForProjectClosure(fp);
-		this.deleteProject(fp.getProjectId());
+		this.getProjectByID(fp.getProjectId());
 		return this.pr.save(fp);
-		
 
 	}
 
@@ -71,7 +65,7 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public StandardTaskSchema updateTask(StandardTaskSchema ft, String fp, int processIndex, int taskIndex) {
 
-		StandardProjectInformationSchema proj = this.pr.findById(fp).get();
+		StandardProjectInformationSchema proj = this.getProjectByID(fp);
 		proj.getProcessesArray().get(processIndex).getSubProcessTasks().set(taskIndex, ft);
 		this.checkForProjectClosure(proj);
 		return this.pr.save(proj).getProcessesArray().get(processIndex).getSubProcessTasks().get(taskIndex);
@@ -79,8 +73,10 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	private StandardProjectInformationSchema checkForProjectClosure(StandardProjectInformationSchema fp) {
-		if (fp.getProcessesArray().stream().allMatch(a -> a.getSubProcessTasks().stream().allMatch(b -> !b.getTaskStatusHistory().isEmpty() && 
-				b.getTaskStatusHistory().get(b.getTaskStatusHistory().size() - 1).getStatusValue().equals("Closed")))) {
+		if (fp.getProcessesArray().stream()
+				.allMatch(a -> a.getSubProcessTasks().stream()
+						.allMatch(b -> !b.getTaskStatusHistory().isEmpty() && b.getTaskStatusHistory()
+								.get(b.getTaskStatusHistory().size() - 1).getStatusValue().equals("Closed")))) {
 			fp.setProjectStatus("Closed");
 		}
 		return fp;

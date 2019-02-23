@@ -25,6 +25,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-rest</artifactId>
 		</dependency>
 
@@ -35,17 +40,23 @@
 				<groupId>org.jsonschema2pojo</groupId>
 				<artifactId>jsonschema2pojo-maven-plugin</artifactId>
 				<version>1.0.0</version>
-	<dependencies>		<dependency>
-			<groupId>com.deloitte.fiddler</groupId>
-			<artifactId>fiddler-common-helper</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-				<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-			<version>	2.0.5.RELEASE</version>
-		</dependency>
-	</dependencies>
+				<dependencies>
+					<dependency>
+						<groupId>com.deloitte.fiddler</groupId>
+						<artifactId>fiddler-common-helper</artifactId>
+						<version>0.0.1-SNAPSHOT</version>
+					</dependency>
+					<dependency>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-starter-data-jpa</artifactId>
+						<version>	2.0.5.RELEASE</version>
+					</dependency>
+					<dependency>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-starter-data-mongodb</artifactId>
+						<version>	2.0.5.RELEASE</version>
+					</dependency>
+				</dependencies>
 				<configuration>
 					<sourceDirectory>${basedir}/src/main/resources/schema</sourceDirectory>
 					<!-- <outputDirectory>${basedir}/src/main/java</outputDirectory> -->
