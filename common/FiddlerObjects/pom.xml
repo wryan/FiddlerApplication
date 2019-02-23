@@ -14,6 +14,11 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>org.jsonschema2pojo</groupId>
+			<artifactId>jsonschema2pojo-core</artifactId>
+			<version>0.4.0</version>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 			<scope>provided</scope>
@@ -26,19 +31,29 @@
 	</dependencies>
 	<build>
 		<plugins>
-			<!-- <plugin> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-maven-plugin</artifactId> 
-				</plugin> -->
 			<plugin>
 				<groupId>org.jsonschema2pojo</groupId>
 				<artifactId>jsonschema2pojo-maven-plugin</artifactId>
 				<version>1.0.0</version>
+	<dependencies>		<dependency>
+			<groupId>com.deloitte.fiddler</groupId>
+			<artifactId>fiddler-common-helper</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+				<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<version>	2.0.5.RELEASE</version>
+		</dependency>
+	</dependencies>
 				<configuration>
 					<sourceDirectory>${basedir}/src/main/resources/schema</sourceDirectory>
-<!-- 					<outputDirectory>${basedir}/src/main/java</outputDirectory>  -->
+					<!-- <outputDirectory>${basedir}/src/main/java</outputDirectory> -->
 					<targetPackage>com.deloitte.fiddler.common</targetPackage>
 					<removeOldOutput>true</removeOldOutput>
 					<includeAdditionalProperties>false</includeAdditionalProperties>
 					<includeJsr303Annotations>true</includeJsr303Annotations>
+					<customAnnotator>com.deloitte.fiddler.util.HibernateAnnotator</customAnnotator>
 
 				</configuration>
 				<executions>
