@@ -11,6 +11,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import com.deloitte.fiddler.common.ProcessesArray;
 import com.deloitte.fiddler.common.StandardProjectInformationSchema;
 import com.deloitte.fiddler.common.StandardTaskSchema;
 import com.deloitte.fiddler.common.StandardTeamSchema;
@@ -100,6 +101,20 @@ public class ProjectServiceImpl implements ProjectService {
 		proj.setTeamID(team.getTeamId());
 		return this.updateProject(proj);
 		
+	}
+
+	@Override
+	public StandardProjectInformationSchema addProcesstoProject(String projectId, String processesArrayUrl) {
+		return this.restTemplate.postForEntity(this.env.getProperty("fiddler.services.project.host") + 
+				this.env.getProperty("fiddler.services.project.endpoints.create") + projectId + "/addProcess",
+						this.restTemplate.postForEntity(this.env.getProperty("fiddler.services.verify.host")
+												+ this.env.getProperty("fiddler.services.verify.endpoints.verify")
+												+ "ProcessesArray",
+										processesArrayUrl, ProcessesArray.class)
+								.getBody(),
+								StandardProjectInformationSchema.class)
+				.getBody();
+
 	}
 
 }

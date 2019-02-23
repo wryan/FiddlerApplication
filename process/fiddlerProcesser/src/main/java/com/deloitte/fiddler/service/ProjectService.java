@@ -3,6 +3,7 @@ package com.deloitte.fiddler.service;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import com.deloitte.fiddler.common.ProcessesArray;
 import com.deloitte.fiddler.common.StandardProjectInformationSchema;
 import com.deloitte.fiddler.common.StandardTaskSchema;
 
@@ -21,5 +22,8 @@ public interface ProjectService {
 	public StandardTaskSchema updateTask(StandardTaskSchema ft, String fp, int processIndex, int taskIndex);
 	
 	public StandardProjectInformationSchema setTeamID(String projectId, String teamId);
+	
+	public StandardProjectInformationSchema addProcesstoProject(String projectId, String processesArrayUrl);
+
 
 }

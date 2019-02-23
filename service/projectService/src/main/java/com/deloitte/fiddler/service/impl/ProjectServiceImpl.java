@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.deloitte.fiddler.common.ProcessesArray;
 import com.deloitte.fiddler.common.StandardProjectInformationSchema;
 import com.deloitte.fiddler.common.StandardTaskSchema;
 import com.deloitte.fiddler.repository.ProjectRepository;
@@ -80,6 +81,13 @@ public class ProjectServiceImpl implements ProjectService {
 			fp.setProjectStatus("Closed");
 		}
 		return fp;
+	}
+
+	@Override
+	public StandardProjectInformationSchema addProcesstoProject(String projectId, ProcessesArray processArray) {
+		StandardProjectInformationSchema project = this.getProjectByID(projectId);
+		project.getProcessesArray().add(processArray);
+		return this.updateProject(project);
 	}
 
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.deloitte.fiddler.common.ProcessesArray;
 import com.deloitte.fiddler.common.StandardProjectInformationSchema;
 import com.deloitte.fiddler.common.StandardTaskSchema;
 import com.deloitte.fiddler.service.ProjectService;
@@ -55,6 +56,12 @@ public class ProjectController {
 	@PostMapping("/{id}/delete")
 	public boolean deleteTask(@PathVariable String id) {
 		return this.ps.deleteProject(id);
+		
+	}
+	
+	@PostMapping("/{id}/addProcess")
+	public StandardProjectInformationSchema addProcessToProject(@PathVariable String id, @RequestBody ProcessesArray processArray) {
+		return this.ps.addProcesstoProject(id, processArray);
 		
 	}
 }

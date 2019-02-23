@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.deloitte.fiddler.common.ProcessesArray;
 import com.deloitte.fiddler.common.StandardProjectInformationSchema;
 import com.deloitte.fiddler.service.ProjectService;
 
@@ -42,6 +43,11 @@ public class ProjectController {
 	public StandardProjectInformationSchema setTeamID(@PathVariable String id, @PathVariable String teamId) {
 		return this.ps.setTeamID(id, teamId);
 
+	}
+	@PostMapping("/{id}/addProcess")
+	public StandardProjectInformationSchema addProcessToProject(@PathVariable String id, @RequestBody String processURL) {
+		return this.ps.addProcesstoProject(id, processURL);
+		
 	}
 //
 //	@PutMapping("/{id}")
