@@ -2,5 +2,5 @@ steps:
 - name: 'gcr.io/cloud-builders/mvn'
   args: ['install']
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '--tag=gcr.io/$PROJECT_ID/fiddlerProcessor', '.']
-images: ['gcr.io/$PROJECT_ID/fiddlerProcessor']
+  args: ['build', '--tag=gcr.io/$PROJECT_ID/fiddler-processor', '.']
+images: ['gcr.io/$PROJECT_ID/fiddler-processor']
