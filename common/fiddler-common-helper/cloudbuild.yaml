@@ -2,4 +2,3 @@ steps:
 - name: 'gcr.io/cloud-builders/mvn'
   args: ['install']
   dir:  'common/fiddler-common-helper'
-images: ['gcr.io/$PROJECT_ID/fiddler-common-helper']
