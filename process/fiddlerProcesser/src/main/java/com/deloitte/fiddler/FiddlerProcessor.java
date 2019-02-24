@@ -7,9 +7,9 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-public class FiddlerProcesser {
+public class FiddlerProcessor {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FiddlerProcesser.class, args);
+		SpringApplication.run(FiddlerProcessor.class, args);
 	}
 }
