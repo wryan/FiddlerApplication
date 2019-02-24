@@ -3,6 +3,8 @@ package com.deloitte.fiddler.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.deloitte.fiddler.common.ProcessesArray;
 import com.deloitte.fiddler.common.StandardProjectInformationSchema;
+import com.deloitte.fiddler.common.StandardTaskSchema;
 import com.deloitte.fiddler.service.ProjectService;
 
 @RestController
@@ -49,6 +51,14 @@ public class ProjectController {
 		return this.ps.addProcesstoProject(id, processURL);
 		
 	}
+	
+	@PostMapping("/{id}/{procId}/{taskId}/status")
+	public ResponseEntity<StandardTaskSchema> updateTask(@PathVariable String id, @PathVariable int procId, 
+			@PathVariable int taskId, @RequestBody String status) {
+		return new ResponseEntity<StandardTaskSchema>(this.ps.updateTaskStatus(status, id, procId, taskId), HttpStatus.ACCEPTED);
+		
+	}
+	
 //
 //	@PutMapping("/{id}")
 //	public StandardProjectInformationSchema updateProject(@RequestBody StandardProjectInformationSchema fp) {

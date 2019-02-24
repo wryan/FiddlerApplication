@@ -76,7 +76,8 @@
             },
             "statusDate":{
                "description":"Date status of the task was achieved",
-               "type":"number",
+               "type":"string", 
+               "format":"date-time",
                "$comment":"Value should be set when status is updated. Recommend adopting UNIX Epoch time."
             },
             "statusOwner":{

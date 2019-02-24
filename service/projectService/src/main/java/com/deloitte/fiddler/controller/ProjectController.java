@@ -53,6 +53,15 @@ public class ProjectController {
 		return this.ps.updateTask(ft, id, procId, taskId);
 		
 	}
+	
+	@PostMapping("/{id}/{procId}/{taskId}/status")
+	public StandardTaskSchema updateTaskStatus(@PathVariable String id, @PathVariable int procId, 
+			@PathVariable int taskId, @RequestBody String status) {
+		return this.ps.updateTaskStatus(status, id, procId, taskId);
+		
+	}
+	
+	
 	@PostMapping("/{id}/delete")
 	public boolean deleteTask(@PathVariable String id) {
 		return this.ps.deleteProject(id);
@@ -64,4 +73,5 @@ public class ProjectController {
 		return this.ps.addProcesstoProject(id, processArray);
 		
 	}
+	
 }

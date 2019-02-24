@@ -25,5 +25,6 @@ public interface ProjectService {
 	
 	public StandardProjectInformationSchema addProcesstoProject(String projectId, String processesArrayUrl);
 
+	public StandardTaskSchema updateTaskStatus(String status, String projectId, int processIndex, int taskIndex);
 
 }

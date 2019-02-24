@@ -1,15 +1,18 @@
 package com.deloitte.fiddler.service.impl;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.deloitte.fiddler.common.ProcessesArray;
 import com.deloitte.fiddler.common.StandardProjectInformationSchema;
 import com.deloitte.fiddler.common.StandardTaskSchema;
+import com.deloitte.fiddler.common.TaskStatusObject;
 import com.deloitte.fiddler.repository.ProjectRepository;
 import com.deloitte.fiddler.service.ProjectService;
 import com.google.cloud.datastore.Datastore;
@@ -45,7 +48,7 @@ public class ProjectServiceImpl implements ProjectService {
 
 	@Override
 	public StandardProjectInformationSchema createProject(StandardProjectInformationSchema p) {
-		p.setProjectId(null);
+		this.projectInitializer(p);
 		return this.pr.save(p);
 
 	}
@@ -88,6 +91,32 @@ public class ProjectServiceImpl implements ProjectService {
 		StandardProjectInformationSchema project = this.getProjectByID(projectId);
 		project.getProcessesArray().add(processArray);
 		return this.updateProject(project);
+	}
+
+	@Override
+	public StandardTaskSchema updateTaskStatus(String status, String projectId, int processIndex, int taskIndex) {
+		TaskStatusObject tso = new TaskStatusObject();
+		tso.setStatusDate(DateTime.now().toDate());
+		tso.setStatusOwner("Admin");
+		tso.setStatusValue(status);
+		StandardTaskSchema task = this.getProjectByID(projectId).getProcessesArray()
+		.get(processIndex).getSubProcessTasks().get(taskIndex);
+		task.getTaskStatusHistory().add(tso);
+		return this.updateTask(task, projectId, processIndex, taskIndex);
+	}
+	
+//	-------private methods-----
+	private StandardProjectInformationSchema projectInitializer(StandardProjectInformationSchema proj) {
+		proj.setProjectId(null);
+		
+		TaskStatusObject tso = new TaskStatusObject();
+		tso.setStatusDate(DateTime.now().toDate());
+		tso.setStatusOwner("Admin");
+		tso.setStatusValue("CREATED");
+		proj.getProcessesArray().stream()
+		.forEach(a -> a.getSubProcessTasks().stream()
+				.forEach(b -> b.getTaskStatusHistory().add(tso)));
+		return proj;
 	}
 
 }

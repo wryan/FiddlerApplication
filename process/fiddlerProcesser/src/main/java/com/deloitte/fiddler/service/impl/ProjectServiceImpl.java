@@ -117,4 +117,11 @@ public class ProjectServiceImpl implements ProjectService {
 
 	}
 
+	@Override
+	public StandardTaskSchema updateTaskStatus(String status, String projectId, int processIndex, int taskIndex) {
+		return this.restTemplate.postForEntity(this.env.getProperty("fiddler.services.project.host")
+				+ this.env.getProperty("fiddler.services.project.endpoints.update") + projectId + "/" + processIndex + "/"
+				+ taskIndex +"/status", status, StandardTaskSchema.class).getBody();
+	}
+
 }
