@@ -50,7 +50,6 @@ public class ProjectController {
 
 	@PutMapping()
 	public StandardProjectInformationSchema updateProject(@RequestBody StandardProjectInformationSchema fp) {
-		System.out.println("updating project " + fp.getProjectId() + " with team ID " + fp.getTeamID());
 		return this.ps.updateProject(fp);
 
 	}

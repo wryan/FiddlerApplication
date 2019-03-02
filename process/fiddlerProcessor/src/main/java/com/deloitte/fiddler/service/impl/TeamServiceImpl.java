@@ -11,6 +11,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import com.deloitte.fiddler.common.StandardProjectInformationSchema;
+import com.deloitte.fiddler.common.StandardTaskSchema;
 import com.deloitte.fiddler.common.StandardTeamSchema;
 import com.deloitte.fiddler.common.TeamRoleObject;
 import com.deloitte.fiddler.service.TeamService;
@@ -29,71 +31,46 @@ public class TeamServiceImpl implements TeamService {
 
 	}
 
+	@Override
+	public StandardTeamSchema updateTeam(String projectId, StandardTeamSchema fd) {
+		
+		RestTemplate restTemplate = new RestTemplate();
+		HttpEntity<StandardTeamSchema> requestEntity = new HttpEntity<StandardTeamSchema>(
+				fd);
+		return restTemplate.exchange(
+				this.env.getProperty("fiddler.services.project.host")
+				+ this.env.getProperty("fiddler.services.project.endpoints.update") + projectId +
+				this.env.getProperty("fiddler.services.project.endpoints.team.updateTeam"),
+				HttpMethod.PUT, requestEntity, StandardTeamSchema.class).getBody();
+	}
 
-	public StandardTeamSchema getTeamByID(String id) throws NoSuchElementException {
-		return this.restTemplate.getForObject(
-				this.env.getProperty("fiddler.services.team.host")
-						+ this.env.getProperty("fiddler.services.team.endpoints.get") + id,
+
+	@Override
+	public StandardTeamSchema removePersonFromRole(String projectId, int roleIndex, String personId) {
+		return this.restTemplate.postForObject(
+				this.env.getProperty("fiddler.services.project.host")
+						+ this.env.getProperty("fiddler.services.project.endpoints.get") + projectId
+						+ this.env.getProperty("fiddler.services.project.endpoints.team.updateTeam") + roleIndex
+						+ this.env.getProperty("fiddler.services.project.endpoints.team.removePersonFromRole"), personId,
 						StandardTeamSchema.class);
 	}
 
-	public boolean deleteTeam(String id) {
-		return this.restTemplate.getForObject(this.env.getProperty("fiddler.services.team.host")
-				+ this.env.getProperty("fiddler.services.team.endpoints.delete") + id, boolean.class);
-
+	@Override
+	public StandardTeamSchema addPersonToRole(String projectId, int roleIndex, String personId) {
+		return this.restTemplate.postForObject(
+				this.env.getProperty("fiddler.services.project.host")
+						+ this.env.getProperty("fiddler.services.project.endpoints.get") + projectId
+						+ this.env.getProperty("fiddler.services.project.endpoints.team.updateTeam") + roleIndex
+						+ this.env.getProperty("fiddler.services.project.endpoints.team.addPersonToRole"), personId,
+						StandardTeamSchema.class);
 	}
 
 	@Override
-	public StandardTeamSchema createTeam(String t) {
-
-		return this.restTemplate.postForEntity(this.env.getProperty("fiddler.services.team.host") + 
-				this.env.getProperty("fiddler.services.team.endpoints.create"),
-						this.restTemplate.postForEntity(this.env.getProperty("fiddler.services.verify.host")
-												+ this.env.getProperty("fiddler.services.verify.endpoints.verify")
-												+ "StandardTeamSchema",
-										t, StandardTeamSchema.class)
-								.getBody(),
-								StandardTeamSchema.class)
-				.getBody();
-
-		
-	}
-
-	@Override
-	public StandardTeamSchema updateTeam(StandardTeamSchema fp) {
-		RestTemplate restTemplate = new RestTemplate();
-		HttpEntity<StandardTeamSchema> requestEntity = new HttpEntity<StandardTeamSchema>(
-				fp);
-		return restTemplate.exchange(
-				this.env.getProperty("fiddler.services.team.host")
-						+ this.env.getProperty("fiddler.services.team.endpoints.update"),
-				HttpMethod.PUT, requestEntity, StandardTeamSchema.class).getBody();
-
-
-	}
-
-	@Override
-	public List<StandardTeamSchema> getAllTeams() {
-		return Arrays.asList(this.restTemplate.getForEntity(
-				this.env.getProperty("fiddler.services.team.host")
-						+ this.env.getProperty("fiddler.services.team.endpoints.get"),
-						StandardTeamSchema[].class).getBody());
-	}
-
-
-	@Override
-	public StandardTeamSchema addPersonToRole(String teamId, int roleIndex, String personId) {
-		return this.restTemplate.postForEntity(this.env.getProperty("fiddler.services.team.host")
-						+ this.env.getProperty("fiddler.services.team.endpoints.get") + teamId + "/" + 
-				roleIndex + "/" + personId, null, StandardTeamSchema.class).getBody();
-	}
-
-
-	@Override
-	public TeamRoleObject getRoleFromTeam(String teamId, int roleIndex) {
+	public TeamRoleObject getRoleFromTeam(String projectId, int roleIndex) {
 		return this.restTemplate.getForObject(
-				this.env.getProperty("fiddler.services.team.host")
-						+ this.env.getProperty("fiddler.services.team.endpoints.get") + teamId + "/" + roleIndex,
+				this.env.getProperty("fiddler.services.project.host")
+						+ this.env.getProperty("fiddler.services.project.endpoints.get") + projectId
+						+ this.env.getProperty("fiddler.services.project.endpoints.team.getRoleFromTeam") + roleIndex,
 						TeamRoleObject.class);
 	}
 

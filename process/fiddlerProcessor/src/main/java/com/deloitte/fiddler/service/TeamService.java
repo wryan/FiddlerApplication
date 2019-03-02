@@ -8,18 +8,11 @@ import com.deloitte.fiddler.common.TeamRoleObject;
 
 public interface TeamService {
 	
-	public StandardTeamSchema createTeam(String t);
+	public StandardTeamSchema updateTeam(String projectId, StandardTeamSchema fd);
 	
-	public List<StandardTeamSchema> getAllTeams();
+	public StandardTeamSchema addPersonToRole(String projectId, int roleIndex, String personId);
 	
-	public StandardTeamSchema getTeamByID(String id) throws NoSuchElementException ;
-	
-	public StandardTeamSchema updateTeam(StandardTeamSchema fd);
-	
-	public boolean deleteTeam(String id);
-	
-	public StandardTeamSchema addPersonToRole(String teamId, int roleIndex, String personId);
-	
-	public TeamRoleObject getRoleFromTeam(String teamId, int roleIndex);
+	public StandardTeamSchema removePersonFromRole(String projectId, int roleIndex, String personId);
 
+	public TeamRoleObject getRoleFromTeam(String projectId, int roleIndex);
 }

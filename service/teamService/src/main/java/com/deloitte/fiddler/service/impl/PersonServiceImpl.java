@@ -10,15 +10,11 @@ import org.springframework.stereotype.Component;
 import com.deloitte.fiddler.common.TeamMemberObject;
 import com.deloitte.fiddler.repository.PersonRepository;
 import com.deloitte.fiddler.service.PersonService;
-import com.deloitte.fiddler.service.TeamService;
 
 @Component
 public class PersonServiceImpl implements PersonService {
 
 	PersonRepository pr;
-
-	@Autowired
-	TeamService ts;
 
 	@Autowired
 	public PersonServiceImpl(PersonRepository prL) {
@@ -51,10 +47,6 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 	public boolean deletePerson(String id) {
-		this.ts.getAllTeams().stream().forEach(a -> {
-			a.getTeamRoleList().stream().forEach(b -> b.getTeamMembersInRole().remove(this.getPersonById(id).getTeamMemberID()));
-			this.ts.updateTeam(a);
-		});
 		this.pr.deleteById(id);
 		return true;
 	}

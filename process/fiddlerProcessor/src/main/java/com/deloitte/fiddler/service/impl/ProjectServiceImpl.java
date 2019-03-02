@@ -17,6 +17,7 @@ import com.deloitte.fiddler.common.StandardTaskSchema;
 import com.deloitte.fiddler.common.StandardTeamSchema;
 import com.deloitte.fiddler.service.ProjectService;
 import com.deloitte.fiddler.service.TeamService;
+import com.deloitte.fiddler.service.VerifyService;
 
 
 @Component
@@ -27,12 +28,15 @@ public class ProjectServiceImpl implements ProjectService {
 	Environment env;
 	
 	TeamService ts;
+	
+	VerifyService vs;
 
 	@Autowired
-	public ProjectServiceImpl(Environment envL, TeamService tsL) {
+	public ProjectServiceImpl(Environment envL, TeamService tsL, VerifyService vsL) {
 		this.restTemplate = new RestTemplate();
 		this.env = envL;
 		this.ts = tsL;
+		this.vs = vsL;
 
 	}
 
@@ -51,14 +55,19 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	public StandardProjectInformationSchema createProject(String p) {
+		StandardProjectInformationSchema proj = this.restTemplate.postForEntity(this.env.getProperty("fiddler.services.verify.host")
+				+ this.env.getProperty("fiddler.services.verify.endpoints.verify")
+				+ "StandardProjectInformationSchema",
+		p, StandardProjectInformationSchema.class)
+.getBody();
+		
+		if(proj.getTeam()==null) {
+			this.setDefaultProjectTeam(proj);
+		}
 
 		return this.restTemplate.postForEntity(this.env.getProperty("fiddler.services.project.host") + 
 				this.env.getProperty("fiddler.services.project.endpoints.create"),
-						this.restTemplate.postForEntity(this.env.getProperty("fiddler.services.verify.host")
-												+ this.env.getProperty("fiddler.services.verify.endpoints.verify")
-												+ "StandardProjectInformationSchema",
-										p, StandardProjectInformationSchema.class)
-								.getBody(),
+						proj,
 						StandardProjectInformationSchema.class)
 				.getBody();
 
@@ -94,16 +103,6 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public StandardProjectInformationSchema setTeamID(String projectId, String teamId) {
-		StandardTeamSchema team = this.ts.getTeamByID(teamId);
-		StandardProjectInformationSchema proj = this.getProjectByID(projectId);
-		System.out.println(team.getTeamId() + " , " +  proj.getProjectId());
-		proj.setTeamID(team.getTeamId());
-		return this.updateProject(proj);
-		
-	}
-
-	@Override
 	public StandardProjectInformationSchema addProcesstoProject(String projectId, String processesArrayUrl) {
 		return this.restTemplate.postForEntity(this.env.getProperty("fiddler.services.project.host") + 
 				this.env.getProperty("fiddler.services.project.endpoints.create") + projectId + "/addProcess",
@@ -122,6 +121,14 @@ public class ProjectServiceImpl implements ProjectService {
 		return this.restTemplate.postForEntity(this.env.getProperty("fiddler.services.project.host")
 				+ this.env.getProperty("fiddler.services.project.endpoints.update") + projectId + "/" + processIndex + "/"
 				+ taskIndex +"/status", status, StandardTaskSchema.class).getBody();
+	}
+	
+	private void setDefaultProjectTeam(StandardProjectInformationSchema proj) {
+
+		proj.setTeam(this.restTemplate.postForEntity(this.env.getProperty("fiddler.services.verify.host")
+				+ this.env.getProperty("fiddler.services.verify.endpoints.verify")
+				+ "StandardTeamSchema",
+				"https://raw.githubusercontent.com/bobmalouf/FiddlerTemplates/master/src/templates/json/TechnologyPatentReviewTeamTemplate.json", StandardTeamSchema.class).getBody());
 	}
 
 }

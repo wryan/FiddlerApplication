@@ -19,9 +19,7 @@ public interface ProjectService {
 	public boolean deleteProject(String id);
 	
 	public StandardTaskSchema updateTask(StandardTaskSchema ft, String fp, int processIndex, int taskIndex);
-	
-	public StandardProjectInformationSchema setTeamID(String projectId, String teamId);
-	
+		
 	public StandardProjectInformationSchema addProcesstoProject(String projectId, String processesArrayUrl);
 
 	public StandardTaskSchema updateTaskStatus(String status, String projectId, int processIndex, int taskIndex);
