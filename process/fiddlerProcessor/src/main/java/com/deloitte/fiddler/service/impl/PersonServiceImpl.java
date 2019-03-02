@@ -11,7 +11,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import com.deloitte.fiddler.common.StandardTeamSchema;
 import com.deloitte.fiddler.common.TeamMemberObject;
 import com.deloitte.fiddler.service.PersonService;
 

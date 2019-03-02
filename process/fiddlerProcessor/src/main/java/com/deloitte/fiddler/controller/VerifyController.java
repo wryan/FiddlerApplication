@@ -18,7 +18,7 @@ public class VerifyController {
 	
 	@PostMapping("/{clazz}")
 	public Object validateJSON(@RequestBody String url, @PathVariable String clazz) throws Exception {
-		return this.vs.validateJSON("com.deloitte.fiddler.common." + clazz, url);
+		return this.vs.validateJSON(clazz, url);
 	}
 
 

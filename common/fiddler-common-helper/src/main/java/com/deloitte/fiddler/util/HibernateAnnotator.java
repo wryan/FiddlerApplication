@@ -21,10 +21,7 @@ public class HibernateAnnotator extends AbstractAnnotator {
         		clazz.fullName().toUpperCase().indexOf(propertyName.toUpperCase().substring(0, propertyName.toUpperCase().indexOf("ID"))) > -1) {
         	field.name("id");
         	field.annotate(javax.persistence.Id.class);
-        	clazz.annotate(Cacheable.class).param("value", false);
-        }
-        if (propertyName.toUpperCase().equals("TEAMMEMBERSINROLE")) {
-        	field.annotate(DBRef.class);
+//        	clazz.annotate(Cacheable.class).param("value", false);
         }
     }
 }

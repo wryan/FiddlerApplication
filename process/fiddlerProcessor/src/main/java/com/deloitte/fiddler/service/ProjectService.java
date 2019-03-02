@@ -3,7 +3,6 @@ package com.deloitte.fiddler.service;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import com.deloitte.fiddler.common.ProcessesArray;
 import com.deloitte.fiddler.common.StandardProjectInformationSchema;
 import com.deloitte.fiddler.common.StandardTaskSchema;
 

@@ -1,6 +1,5 @@
 package com.deloitte.fiddler.service.impl;
 
-import java.sql.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -23,12 +22,10 @@ public class ProjectServiceImpl implements ProjectService {
 
 	ProjectRepository pr;
 
-	Datastore datastore;
 
 	@Autowired
 	public ProjectServiceImpl(ProjectRepository prL) {
 		this.pr = prL;
-		this.datastore = DatastoreOptions.getDefaultInstance().getService();
 
 	}
 
@@ -49,6 +46,7 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public StandardProjectInformationSchema createProject(StandardProjectInformationSchema p) {
 		this.projectInitializer(p);
+		System.out.println(p.getCreated().getTime());
 		return this.pr.save(p);
 
 	}
@@ -108,7 +106,7 @@ public class ProjectServiceImpl implements ProjectService {
 //	-------private methods-----
 	private StandardProjectInformationSchema projectInitializer(StandardProjectInformationSchema proj) {
 		proj.setProjectId(null);
-		
+		proj.setCreated(DateTime.now().toDate());
 		TaskStatusObject tso = new TaskStatusObject();
 		tso.setStatusDate(DateTime.now().toDate());
 		tso.setStatusOwner("Admin");

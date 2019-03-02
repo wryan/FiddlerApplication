@@ -52,7 +52,7 @@ public class PersonServiceImpl implements PersonService {
 
 	public boolean deletePerson(String id) {
 		this.ts.getAllTeams().stream().forEach(a -> {
-			a.getTeamRoleList().stream().forEach(b -> b.getTeamMembersInRole().remove(this.getPersonById(id)));
+			a.getTeamRoleList().stream().forEach(b -> b.getTeamMembersInRole().remove(this.getPersonById(id).getTeamMemberID()));
 			this.ts.updateTeam(a);
 		});
 		this.pr.deleteById(id);
