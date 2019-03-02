@@ -7,7 +7,7 @@ import com.deloitte.fiddler.common.TeamMemberObject;
 
 public interface PersonService {
 	
-	public TeamMemberObject createPerson(TeamMemberObject p);
+	public TeamMemberObject createPerson(String name);
 	
 	public List<TeamMemberObject> getAllPeople();
 	

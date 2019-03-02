@@ -47,11 +47,7 @@ public class PersonServiceImpl implements PersonService {
 
 		return this.restTemplate.postForEntity(this.env.getProperty("fiddler.services.person.host") + 
 				this.env.getProperty("fiddler.services.person.endpoints.create"),
-						this.restTemplate.postForEntity(this.env.getProperty("fiddler.services.verify.host")
-												+ this.env.getProperty("fiddler.services.verify.endpoints.verify")
-												+ "TeamMemberObject",
-										t, TeamMemberObject.class)
-								.getBody(),
+						t,
 								TeamMemberObject.class)
 				.getBody();
 

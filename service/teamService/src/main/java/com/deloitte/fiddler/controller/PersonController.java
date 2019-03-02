@@ -24,8 +24,8 @@ public class PersonController {
 	PersonService ps;
 
 	@PostMapping
-	public ResponseEntity<TeamMemberObject> createNewPerson(@RequestBody TeamMemberObject t) {
-		return new ResponseEntity<TeamMemberObject>(this.ps.createPerson(t), HttpStatus.CREATED);
+	public ResponseEntity<TeamMemberObject> createNewPerson(@RequestBody String name) {
+		return new ResponseEntity<TeamMemberObject>(this.ps.createPerson(name), HttpStatus.CREATED);
 	}
 
 	@GetMapping

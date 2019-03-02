@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,9 +23,11 @@ public class PersonServiceImpl implements PersonService {
 
 	}
 
-	public TeamMemberObject createPerson(TeamMemberObject p) {
-		p.setTeamMemberID(null);
-		return this.pr.save(p);
+	public TeamMemberObject createPerson(String name) {
+		TeamMemberObject person = new TeamMemberObject();
+		person.setTeamMemberName(name);
+		person.setTeamMemberStartDate(DateTime.now().toDate());
+		return this.pr.save(person);
 	}
 
 	public List<TeamMemberObject> getAllPeople() {
