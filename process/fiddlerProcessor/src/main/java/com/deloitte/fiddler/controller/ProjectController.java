@@ -66,6 +66,11 @@ public class ProjectController {
 	public ResponseEntity<StandardTeamSchema> updateTeam(@PathVariable String id, @RequestBody StandardTeamSchema fp) {
 		return new ResponseEntity<StandardTeamSchema>(this.ts.updateTeam(id, fp), HttpStatus.ACCEPTED);
 	}
+	
+	@PostMapping("/{id}/team/role/add")
+	public ResponseEntity<StandardTeamSchema> addPersonToRole(@PathVariable String id, @RequestBody String roleName) {
+		return new ResponseEntity<StandardTeamSchema>(this.ts.addRole(id, roleName), HttpStatus.ACCEPTED);
+	}
 
 	@GetMapping("/{id}/team/{roleIndex}")
 	public ResponseEntity<TeamRoleObject> getRoleFromTeam(@PathVariable String id, @PathVariable int roleIndex) {
@@ -78,10 +83,17 @@ public class ProjectController {
 		return new ResponseEntity<StandardTeamSchema>(this.ts.addPersonToRole(id, roleIndex, personId),
 				HttpStatus.ACCEPTED);
 	}
-
+	
 	@PostMapping("/{id}/team/{roleIndex}/remove")
+	public ResponseEntity<StandardTeamSchema> removePersonFromRole(@PathVariable String id, @PathVariable int roleIndex) {
+		return new ResponseEntity<StandardTeamSchema>(this.ts.removeRole(id, roleIndex),
+				HttpStatus.ACCEPTED);
+
+	}
+
+	@PostMapping("/{id}/team/{roleIndex}/remove/{personId}")
 	public ResponseEntity<StandardTeamSchema> removePersonFromRole(@PathVariable String id, @PathVariable int roleIndex,
-			@RequestBody String personId) {
+			@PathVariable String personId) {
 		return new ResponseEntity<StandardTeamSchema>(this.ts.removePersonFromRole(id, roleIndex, personId),
 				HttpStatus.ACCEPTED);
 

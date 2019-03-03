@@ -23,14 +23,16 @@ fiddler:
         create: /api/project/
         update: /api/project/
         delete: /api/project/
-    team: 
-      host: http://localhost:8083
-#      host: ${PROJECT_HOST}
-      endpoints:
-        get: /api/team/
-        create: /api/team/
-        update: /api/team/
-        delete: /api/team/
+        process:
+          addProcess: /addProcess
+        team:
+          updateTeam: /team/
+          addRole: /team/role/add
+          getRoleFromTeam: /team/
+          addPersonToRole: /add
+          removePersonFromRole: /remove
+           
+        
     person: 
       host: http://localhost:8083
 #      host: ${PROJECT_HOST}

@@ -15,4 +15,12 @@ public interface TeamService {
 	public StandardTeamSchema removePersonFromRole(String projectId, int roleIndex, String personId);
 
 	public TeamRoleObject getRoleFromTeam(String projectId, int roleIndex);
+	
+	public StandardTeamSchema removeRole(String projectId, int roleIndex);
+	
+	public StandardTeamSchema addRole(String projectId, String roleName);
+
+
+	
+
 }

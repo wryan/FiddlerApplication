@@ -51,7 +51,7 @@ public class TeamServiceImpl implements TeamService {
 				this.env.getProperty("fiddler.services.project.host")
 						+ this.env.getProperty("fiddler.services.project.endpoints.get") + projectId
 						+ this.env.getProperty("fiddler.services.project.endpoints.team.updateTeam") + roleIndex
-						+ this.env.getProperty("fiddler.services.project.endpoints.team.removePersonFromRole"), personId,
+						+ this.env.getProperty("fiddler.services.project.endpoints.team.removePersonFromRole") +"/" + personId,null,
 						StandardTeamSchema.class);
 	}
 
@@ -72,6 +72,24 @@ public class TeamServiceImpl implements TeamService {
 						+ this.env.getProperty("fiddler.services.project.endpoints.get") + projectId
 						+ this.env.getProperty("fiddler.services.project.endpoints.team.getRoleFromTeam") + roleIndex,
 						TeamRoleObject.class);
+	}
+
+	public StandardTeamSchema removeRole(String projectId, int roleIndex) {
+		return this.restTemplate.postForObject(
+				this.env.getProperty("fiddler.services.project.host")
+						+ this.env.getProperty("fiddler.services.project.endpoints.get") + projectId
+						+ this.env.getProperty("fiddler.services.project.endpoints.team.updateTeam") + roleIndex
+						+ this.env.getProperty("fiddler.services.project.endpoints.team.removePersonFromRole"),null,
+						StandardTeamSchema.class);
+	}
+
+	@Override
+	public StandardTeamSchema addRole(String projectId, String roleName) {
+		return this.restTemplate.postForObject(
+				this.env.getProperty("fiddler.services.project.host")
+						+ this.env.getProperty("fiddler.services.project.endpoints.get") + projectId
+						+ this.env.getProperty("fiddler.services.project.endpoints.team.addRole") ,roleName,
+						StandardTeamSchema.class);
 	}
 
 

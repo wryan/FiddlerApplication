@@ -35,11 +35,10 @@ public class TeamServiceImpl implements TeamService {
 			roleObject.getTeamMembersInRole().add(personId);
 			return this.ps.updateProject(proj).getTeam();
 		} else {
-			throw new NoSuchElementException(
-					personId+ " is already in the role " + roleObject.getTeamRole());
+			throw new NoSuchElementException(personId + " is already in the role " + roleObject.getTeamRole());
 		}
 	}
-	
+
 	public StandardTeamSchema removePersonFromRole(String projectId, int roleIndex, String personId) {
 		StandardProjectInformationSchema proj = this.ps.getProjectByID(projectId);
 		TeamRoleObject roleObject = proj.getTeam().getTeamRoleList().get(roleIndex);
@@ -48,8 +47,7 @@ public class TeamServiceImpl implements TeamService {
 			roleObject.getTeamMembersInRole().remove(personId);
 			return this.ps.updateProject(proj).getTeam();
 		} else {
-			throw new NoSuchElementException(
-					personId+ " is not in the role " + roleObject.getTeamRole());
+			throw new NoSuchElementException(personId + " is not in the role " + roleObject.getTeamRole());
 		}
 	}
 
@@ -57,6 +55,22 @@ public class TeamServiceImpl implements TeamService {
 	public StandardTeamSchema updateTeam(String projectId, StandardTeamSchema fd) {
 		StandardProjectInformationSchema proj = this.ps.getProjectByID(projectId);
 		proj.setTeam(fd);
+		return this.ps.updateProject(proj).getTeam();
+	}
+
+	@Override
+	public StandardTeamSchema removeRole(String projectId, int roleIndex) {
+		StandardProjectInformationSchema proj = this.ps.getProjectByID(projectId);
+		proj.getTeam().getTeamRoleList().remove(roleIndex);
+		return this.ps.updateProject(proj).getTeam();
+	}
+
+	@Override
+	public StandardTeamSchema addRole(String projectId, String roleName) {
+		TeamRoleObject newRole = new TeamRoleObject();
+		newRole.setTeamRole(roleName);
+		StandardProjectInformationSchema proj = this.ps.getProjectByID(projectId);
+		proj.getTeam().getTeamRoleList().add(newRole);
 		return this.ps.updateProject(proj).getTeam();
 	}
 
