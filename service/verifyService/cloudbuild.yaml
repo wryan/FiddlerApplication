@@ -3,5 +3,5 @@ steps:
   args: ['install']
   dir:  'system/verifyService'
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '--tag=gcr.io/$PROJECT_ID/verifyService', '.']
-images: ['gcr.io/$PROJECT_ID/verifyService'] 
+  args: ['build', '--tag=gcr.io/$PROJECT_ID/verifyservice', '.']
+images: ['gcr.io/$PROJECT_ID/verifyservice'] 
