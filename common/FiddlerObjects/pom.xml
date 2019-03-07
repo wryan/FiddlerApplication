@@ -44,6 +44,16 @@
 			<url>gs://fiddler-central/release</url>
 		</repository>
 	</distributionManagement>
+	<repositories>
+		<repository>
+			<id>fiddler-central-snapshot</id>
+			<url>gs://fiddler-central/snapshot</url>
+		</repository>
+		<repository>
+			<id>fiddler-central-release</id>
+			<url>gs://fiddler-central/release</url>
+		</repository>
+	</repositories>
 	<build>
 		<extensions>
 			<extension>
@@ -62,6 +72,7 @@
 						<groupId>com.deloitte.fiddler</groupId>
 						<artifactId>fiddler-common-helper</artifactId>
 						<version>0.0.1-SNAPSHOT</version>
+
 					</dependency>
 					<dependency>
 						<groupId>org.springframework.boot</groupId>
