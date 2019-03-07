@@ -27,10 +27,8 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-rest</artifactId>
 		</dependency>
-<!-- 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-mongodb</artifactId>
-		</dependency> -->
+		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-data-mongodb</artifactId> 
+			</dependency> -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -96,7 +94,16 @@
 			<id>jitpack.io</id>
 			<url>https://jitpack.io</url>
 		</repository>
+		<repository>
+			<id>fiddler-central-snapshot</id>
+			<url>gs://fiddler-central/snapshot</url>
+		</repository>
+		<repository>
+			<id>fiddler-central-release</id>
+			<url>gs://fiddler-central/release</url>
+		</repository>
 	</repositories>
+
 
 	<build>
 		<plugins>
