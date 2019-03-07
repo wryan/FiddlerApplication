@@ -1,0 +1,32 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"$id": "https://raw.githubusercontent.com/wryan/FiddlerSchemas/master/src/schemas/json/standardTeamSchema.json",
+	"title": "Team Member",
+	"description": "People on a team and dates on the team",
+	"type": "object",
+	"additionalProperties": false,
+	"properties": {
+		"teamMemberName": {
+			"description": "Name of person on team",
+			"type": "string",
+			"$comment": "Value is set when person is added to team"
+		},
+		"teamMemberID": {
+			"description": "ID of person on team",
+			"type": "string",
+			"$comment": "Value is set when person is added to team"
+		},
+		"teamMemberStartDate": {
+			"description": "Date person joins team",
+			"type": "string",
+			"format": "date-time",
+			"$comment": "Value is set when person is added to team"
+		},
+		"teamMemberEndDate": {
+			"description": "Date person leaves team",
+			"type": "string",
+			"format": "date-time",
+			"$comment": "Value is set when person leaves team"
+		}
+	}
+}

@@ -1,0 +1,58 @@
+spring:
+  servlet:
+    multipart:
+      max-file-size: 1000000KB
+      max-request-size: 1000000KB
+      file-size-threshold: 2000KB
+  application:
+     name: fiddler-processer
+  data:
+    rest:
+      detection-strategy: annotated
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+  jackson:
+    serialization:
+      write-dates-as-timestamps: true
+server:
+  port: 8080
+#  servlet:
+#    contextPath: /api
+fiddler:
+  services:
+    project: 
+      host: http://localhost:8082
+#      host: ${PROJECT_HOST}
+      endpoints:
+        get: /api/project/
+        create: /api/project/
+        update: /api/project/
+        delete: /api/project/
+        process:
+          addProcess: /addProcess
+        team:
+          updateTeam: /team/
+          addRole: /team/role/add
+          getRoleFromTeam: /team/
+          addPersonToRole: /add
+          removePersonFromRole: /remove
+    file:
+      host: http://localhost:8085
+      endpoints:
+        create: /api/file/
+        get: /api/file/
+        delete: /api/file/       
+        
+    person: 
+      host: http://localhost:8083
+#      host: ${PROJECT_HOST}
+      endpoints:
+        get: /api/person/
+        create: /api/person/
+        update: /api/person/
+        delete: /api/person/
+    verify: 
+      host: http://localhost:8084
+#      host: ${PROJECT_HOST}
+      endpoints:
+        verify: /api/verify/

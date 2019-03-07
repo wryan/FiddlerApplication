@@ -1,0 +1,26 @@
+spring:
+  servlet:
+    multipart:
+      max-file-size: 1000000KB
+      max-request-size: 1000000KB
+      file-size-threshold: 2000KB
+  application:
+     name: file-service
+  data:
+    mongodb:
+ #     host: ${MONGO_HOST}
+      host: localhost:27019
+ #      port: 27019
+    rest:
+      detection-strategy: annotated
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+  jackson:
+    serialization:
+      write-dates-as-timestamps: true
+      FAIL_ON_EMPTY_BEANS: false
+      
+server:
+  port: 8085
+#  servlet:
+#    contextPath: /api

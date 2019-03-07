@@ -1,0 +1,124 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.deloitte.fiddler</groupId>
+	<artifactId>fiddler-common</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.0.5.RELEASE</version>
+	</parent>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.jsonschema2pojo</groupId>
+			<artifactId>jsonschema2pojo-core</artifactId>
+			<version>0.4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-rest</artifactId>
+		</dependency>
+
+	</dependencies>
+	<distributionManagement>
+		<snapshotRepository>
+			<id>fiddler-central-snapshot</id>
+			<url>gs://fiddler-central/snapshot</url>
+		</snapshotRepository>
+		<repository>
+			<id>fiddler-central-release</id>
+			<url>gs://fiddler-central/release</url>
+		</repository>
+	</distributionManagement>
+	<repositories>
+		<repository>
+			<id>fiddler-central-snapshot</id>
+			<url>gs://fiddler-central/snapshot</url>
+		</repository>
+		<repository>
+			<id>fiddler-central-release</id>
+			<url>gs://fiddler-central/release</url>
+		</repository>
+	</repositories>
+	<build>
+		<extensions>
+			<extension>
+				<groupId>com.gkatzioura.maven.cloud</groupId>
+				<artifactId>google-storage-wagon</artifactId>
+				<version>1.0</version>
+			</extension>
+		</extensions>
+		<plugins>
+			<plugin>
+				<groupId>org.jsonschema2pojo</groupId>
+				<artifactId>jsonschema2pojo-maven-plugin</artifactId>
+				<version>1.0.0</version>
+				<dependencies>
+					<dependency>
+						<groupId>com.deloitte.fiddler</groupId>
+						<artifactId>fiddler-common-helper</artifactId>
+						<version>0.0.1-SNAPSHOT</version>
+
+					</dependency>
+					<dependency>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-starter-data-jpa</artifactId>
+						<version>	2.0.5.RELEASE</version>
+					</dependency>
+					<dependency>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-starter-data-mongodb</artifactId>
+						<version>	2.0.5.RELEASE</version>
+					</dependency>
+				</dependencies>
+				<configuration>
+					<sourceDirectory>${basedir}/src/main/resources/schema</sourceDirectory>
+					<!-- <outputDirectory>${basedir}/src/main/java</outputDirectory> -->
+					<targetPackage>com.deloitte.fiddler.common</targetPackage>
+					<removeOldOutput>true</removeOldOutput>
+					<includeAdditionalProperties>false</includeAdditionalProperties>
+					<includeJsr303Annotations>true</includeJsr303Annotations>
+					<customAnnotator>com.deloitte.fiddler.util.HibernateAnnotator</customAnnotator>
+
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+						<configuration>
+							<skip>true</skip>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+
+		</plugins>
+	</build>
+</project>

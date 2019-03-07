@@ -1,0 +1,19 @@
+spring:
+  application:
+     name: person-service
+  data:
+    mongodb:
+ #     host: ${MONGO_HOST}
+ #     host: 192.168.99.100:27018
+       port: 27018
+    rest:
+      detection-strategy: annotated
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+  jackson:
+    serialization:
+      write-dates-as-timestamps: true
+server:
+  port: 8083
+#  servlet:
+#    contextPath: /api
