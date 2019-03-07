@@ -1,8 +1,9 @@
 package com.deloitte.fiddler.service.impl;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -13,7 +14,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -38,8 +38,11 @@ public class FileServiceImpl implements FileService {
 	    LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 
 		FileOutputStream fo;
+		Path tempDir;
 		try {
-			fo = new FileOutputStream(file.getOriginalFilename());
+			tempDir = Files.createTempDirectory("tempFiles");
+
+			fo = new FileOutputStream(tempDir + "/" + file.getOriginalFilename());
 			System.out.println(file.getOriginalFilename());
 			fo.write(file.getBytes());
 			fo.close();

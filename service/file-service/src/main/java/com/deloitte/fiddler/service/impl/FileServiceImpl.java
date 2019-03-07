@@ -3,9 +3,12 @@ package com.deloitte.fiddler.service.impl;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.NoSuchElementException;
 
 import org.apache.commons.io.FileUtils;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -38,9 +41,9 @@ public class FileServiceImpl implements FileService {
 			GridFSInputFile f = this.gridFS.createFile(file.getInputStream());
 			f.setFilename(file.getOriginalFilename());
 			f.setContentType(file.getContentType());
-			f.setId(String.valueOf(this.gridFS.getFileList().getCollection().count() + 1));
+//			f.setId(String.valueOf(this.gridFS.getFileList().getCollection().count() + 1));
 			f.save();
-			return (String) f.getId();
+			return f.getId().toString();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -64,13 +67,14 @@ public class FileServiceImpl implements FileService {
 	}
 
 	public Resource getFile(String id) {
-		File f;
+		File f = null;
+		Path tempDir;
 		try {
-			BasicDBObject query = new BasicDBObject("_id", id);
-			GridFSDBFile file = this.gridFS.findOne(query);
+			tempDir = Files.createTempDirectory("tempFiles");
+			GridFSDBFile file = this.gridFS.findOne(new ObjectId(id));
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			file.writeTo(baos);
-			f = new File(file.getFilename());
+			f = new File(tempDir + "/" +file.getFilename());
 			FileUtils.writeByteArrayToFile(f, baos.toByteArray());
 			return new UrlResource(f.toPath().toUri());
 
@@ -79,6 +83,8 @@ public class FileServiceImpl implements FileService {
 			e.printStackTrace();
 			throw new Error(e.getMessage());
 
+		} finally {
+//			f.delete();
 		}
 
 	}
