@@ -9,7 +9,7 @@ spring:
   data:
     mongodb:
  #     host: ${MONGO_HOST}
-      host: localhost:27019
+ #     host: localhost:27019
  #      port: 27019
     rest:
       detection-strategy: annotated
@@ -21,6 +21,6 @@ spring:
       FAIL_ON_EMPTY_BEANS: false
       
 server:
-  port: 8085
+#  port: 8085
 #  servlet:
 #    contextPath: /api
