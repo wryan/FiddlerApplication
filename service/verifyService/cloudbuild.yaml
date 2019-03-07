@@ -1,7 +1,7 @@
 steps:
 - name: 'gcr.io/cloud-builders/mvn'
   args: ['install']
-  dir:  'common/FiddlerObjects'
-- name: 'gcr.io/cloud-builders/mvn'
-  args: ['deploy']
-  dir:  'common/FiddlerObjects'
+  dir:  'system/verifyService'
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '--tag=gcr.io/$PROJECT_ID/verifyService', '.']
+images: ['gcr.io/$PROJECT_ID/verifyService']
