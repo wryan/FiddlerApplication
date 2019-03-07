@@ -8,8 +8,8 @@ spring:
      name: file-service
   data:
     mongodb:
-      host: ${FILE_HOST}
- #     host: localhost:27019
+ #     host: ${FILE_HOST}
+      host: localhost:27019
  #      port: 27019
     rest:
       detection-strategy: annotated

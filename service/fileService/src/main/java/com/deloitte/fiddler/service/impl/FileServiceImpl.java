@@ -53,12 +53,11 @@ public class FileServiceImpl implements FileService {
 	}
 
 	public boolean deleteFile(String id) {
-		BasicDBObject query = new BasicDBObject("_id", id);
-		GridFSDBFile file = this.gridFS.findOne(query); 
+		GridFSDBFile file = this.gridFS.findOne(new ObjectId(id)); 
 
 		if(file != null){
 
-			this.gridFS.remove(query);
+			this.gridFS.remove(new ObjectId(id));
 			return true;
 		} else {
 			throw new NoSuchElementException("No document exists by id " + id);
