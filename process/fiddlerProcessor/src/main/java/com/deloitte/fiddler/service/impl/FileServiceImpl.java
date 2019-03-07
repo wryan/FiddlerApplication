@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
@@ -25,12 +26,14 @@ public class FileServiceImpl implements FileService {
 	RestTemplate restTemplate;
 
 	Environment env;
+	
+	DiscoveryClient discoveryClient;
 
 	@Autowired
-	public FileServiceImpl(Environment envL) {
+	public FileServiceImpl(Environment envL,  DiscoveryClient discoveryClientL) {
 		this.restTemplate = new RestTemplate();
 		this.env = envL;
-
+		this.discoveryClient = discoveryClientL;
 	}
 
 	@Override
@@ -52,7 +55,7 @@ public class FileServiceImpl implements FileService {
 
 	        HttpEntity<LinkedMultiValueMap<String, Object>> requestEntity = new HttpEntity<>(map, headers);
 
-			return this.restTemplate.postForEntity(this.env.getProperty("fiddler.services.file.host") + 
+			return this.restTemplate.postForEntity(this.discoveryClient.getInstances(this.env.getProperty("fiddler.services.file.host")).get(0).getUri() + 
 					this.env.getProperty("fiddler.services.file.endpoints.create"),
 					requestEntity,
 							String.class) 
@@ -68,7 +71,7 @@ public class FileServiceImpl implements FileService {
 
 	@Override
 	public String deleteFile(String id) {
-		return this.restTemplate.postForEntity(this.env.getProperty("fiddler.services.file.host") + 
+		return this.restTemplate.postForEntity(this.discoveryClient.getInstances(this.env.getProperty("fiddler.services.file.host")).get(0).getUri() + 
 				this.env.getProperty("fiddler.services.file.endpoints.delete") + id + "/delete",
 						null,
 						String.class)
@@ -79,7 +82,7 @@ public class FileServiceImpl implements FileService {
 	@Override
 	public Resource getFile(String id) {
 		return this.restTemplate.getForObject(
-				this.env.getProperty("fiddler.services.file.host")
+				this.discoveryClient.getInstances(this.env.getProperty("fiddler.services.file.host")).get(0).getUri()
 						+ this.env.getProperty("fiddler.services.file.endpoints.get") + id,
 						Resource.class);
 	}
