@@ -34,6 +34,7 @@ public class FileServiceImpl implements FileService {
 		this.restTemplate = new RestTemplate();
 		this.env = envL;
 		this.discoveryClient = discoveryClientL;
+		System.out.println(this.discoveryClient.getServices()); 
 	}
 
 	@Override

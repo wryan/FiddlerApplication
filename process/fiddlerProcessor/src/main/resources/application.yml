@@ -4,7 +4,7 @@ spring:
     multipart:
       max-file-size: 1000000KB
       max-request-size: 1000000KB
-      file-size-threshold: 2000KB
+      file-size-threshold: 200000KB
   application:
      name: fiddler-processer
   data:
@@ -16,7 +16,7 @@ spring:
     serialization:
       write-dates-as-timestamps: true
 server:
-  port: 8080
+#  port: 8080
 #  servlet:
 #    contextPath: /api
 fiddler:
