@@ -25,7 +25,10 @@ public class VerifyServiceImpl implements VerifyService {
 		this.restTemplate = new RestTemplate();
 		this.env = envL;
 		this.discoveryClient = discoveryClientL;
+		System.out.println("------------services-------------");
 		System.out.println(String.join(",", this.discoveryClient.getServices()));
+		System.out.println(this.discoveryClient.getInstances(this.env.getProperty("fiddler.services.verify.host")).get(0).getUri());
+		
 
 	}
 
