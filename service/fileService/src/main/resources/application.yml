@@ -8,7 +8,7 @@ spring:
      name: file-service
   data:
     mongodb:
- #     host: ${MONGO_HOST}
+      host: ${FILE_HOST}
  #     host: localhost:27019
  #      port: 27019
     rest:
