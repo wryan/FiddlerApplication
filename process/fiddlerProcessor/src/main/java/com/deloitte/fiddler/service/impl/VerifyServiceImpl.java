@@ -1,5 +1,7 @@
 package com.deloitte.fiddler.service.impl;
 
+import java.net.URLEncoder;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
@@ -24,6 +26,8 @@ public class VerifyServiceImpl implements VerifyService {
 
 	@Override
 	public Object validateJSON(String clazz, String url) {
+		System.out.println(this.env.getProperty("fiddler.services.verify.host"));
+		System.out.println(URLEncoder.encode(this.env.getProperty("fiddler.services.verify.host")));
 		return this.restTemplate.postForEntity(this.env.getProperty("fiddler.services.verify.host")
 				+ this.env.getProperty("fiddler.services.verify.endpoints.verify")
 				+ clazz,
