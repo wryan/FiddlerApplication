@@ -25,6 +25,7 @@ public class VerifyServiceImpl implements VerifyService {
 		this.restTemplate = new RestTemplate();
 		this.env = envL;
 		this.discoveryClient = discoveryClientL;
+		System.out.println(String.join(",", this.discoveryClient.getServices()));
 
 	}
 
