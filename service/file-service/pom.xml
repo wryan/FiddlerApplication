@@ -68,6 +68,13 @@
 			</plugin>
 
 		</plugins>
+				<extensions>
+			<extension>
+				<groupId>com.gkatzioura.maven.cloud</groupId>
+				<artifactId>google-storage-wagon</artifactId>
+				<version>1.0</version>
+			</extension>
+		</extensions>
 	</build>
 
 

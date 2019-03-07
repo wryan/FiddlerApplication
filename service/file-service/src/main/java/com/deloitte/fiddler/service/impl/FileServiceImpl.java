@@ -54,7 +54,7 @@ public class FileServiceImpl implements FileService {
 
 	public boolean deleteFile(String id) {
 		BasicDBObject query = new BasicDBObject("_id", id);
-		GridFSDBFile file = this.gridFS.findOne(query);
+		GridFSDBFile file = this.gridFS.findOne(query); 
 
 		if(file != null){
 
