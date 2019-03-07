@@ -2,3 +2,6 @@ steps:
 - name: 'gcr.io/cloud-builders/mvn'
   args: ['install']
   dir:  'common/fiddler-common-helper'
+  - name: 'gcr.io/cloud-builders/mvn'
+  args: ['deploy']
+  dir:  'common/fiddler-common-helper'
