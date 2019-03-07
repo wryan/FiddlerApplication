@@ -54,7 +54,24 @@
 			<version>2.9.2</version>
 		</dependency>
 	</dependencies>
+		<repositories>
+		<repository>
+			<id>fiddler-central-snapshot</id>
+			<url>gs://fiddler-central/snapshot</url>
+		</repository>
+		<repository>
+			<id>fiddler-central-release</id>
+			<url>gs://fiddler-central/release</url>
+		</repository>
+	</repositories>
 	<build>
+		<extensions>
+			<extension>
+				<groupId>com.gkatzioura.maven.cloud</groupId>
+				<artifactId>google-storage-wagon</artifactId>
+				<version>1.0</version>
+			</extension>
+		</extensions>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
