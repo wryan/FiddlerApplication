@@ -34,14 +34,16 @@
 		</dependency>
 
 	</dependencies>
-	<snapshotRepository>
-		<id>fiddler-central-snapshot</id>
-		<url>gs://fiddler-central/snapshot</url>
-	</snapshotRepository>
-	<repository>
-		<id>fiddler-central-release</id>
-		<url>gs://fiddler-central/release</url>
-	</repository>
+	<distributionManagement>
+		<snapshotRepository>
+			<id>fiddler-central-snapshot</id>
+			<url>gs://fiddler-central/snapshot</url>
+		</snapshotRepository>
+		<repository>
+			<id>fiddler-central-release</id>
+			<url>gs://fiddler-central/release</url>
+		</repository>
+	</distributionManagement>
 	<build>
 		<extensions>
 			<extension>
