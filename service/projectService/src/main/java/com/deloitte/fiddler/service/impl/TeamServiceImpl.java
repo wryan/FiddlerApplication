@@ -27,10 +27,11 @@ public class TeamServiceImpl implements TeamService {
 	}
 
 	public StandardTeamSchema addPersonToRole(String projectId, int roleIndex, String personId) {
-		System.out.println("here");
+		System.out.println("here "+ projectId + " - " + roleIndex + " - " + personId);
 		StandardProjectInformationSchema proj = this.ps.getProjectByID(projectId);
 		TeamRoleObject roleObject = proj.getTeam().getTeamRoleList().get(roleIndex);
 		if (!roleObject.getTeamMembersInRole().stream().anyMatch(a -> a.equals(personId))) {
+			System.out.println("blah "+ projectId + " - " + roleIndex + " - " + personId);
 
 			roleObject.getTeamMembersInRole().add(personId);
 			return this.ps.updateProject(proj).getTeam();

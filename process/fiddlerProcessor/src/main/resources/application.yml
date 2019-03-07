@@ -1,4 +1,9 @@
 spring:
+  servlet:
+    multipart:
+      max-file-size: 1000000KB
+      max-request-size: 1000000KB
+      file-size-threshold: 2000KB
   application:
      name: fiddler-processer
   data:
@@ -31,7 +36,12 @@ fiddler:
           getRoleFromTeam: /team/
           addPersonToRole: /add
           removePersonFromRole: /remove
-           
+    file:
+      host: http://localhost:8085
+      endpoints:
+        create: /api/file/
+        get: /api/file/
+        delete: /api/file/       
         
     person: 
       host: http://localhost:8083

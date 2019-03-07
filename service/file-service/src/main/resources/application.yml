@@ -1,11 +1,16 @@
 spring:
+  servlet:
+    multipart:
+      max-file-size: 1000000KB
+      max-request-size: 1000000KB
+      file-size-threshold: 2000KB
   application:
-     name: person-service
+     name: file-service
   data:
     mongodb:
  #     host: ${MONGO_HOST}
- #     host: 192.168.99.100:27018
-       port: 27018
+      host: localhost:27019
+ #      port: 27019
     rest:
       detection-strategy: annotated
   autoconfigure:
@@ -13,7 +18,9 @@ spring:
   jackson:
     serialization:
       write-dates-as-timestamps: true
+      FAIL_ON_EMPTY_BEANS: false
+      
 server:
-  port: 8083
+  port: 8085
 #  servlet:
 #    contextPath: /api
