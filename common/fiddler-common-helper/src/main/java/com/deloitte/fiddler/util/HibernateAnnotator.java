@@ -4,10 +4,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.sun.codemodel.JDefinedClass;
 import com.sun.codemodel.JFieldVar;
 
-import javax.persistence.Cacheable;
 
 import org.jsonschema2pojo.AbstractAnnotator;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 
 
 public class HibernateAnnotator extends AbstractAnnotator {
