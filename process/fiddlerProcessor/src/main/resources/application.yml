@@ -1,4 +1,5 @@
 spring:
+  profiles: kubernetes
   servlet:
     multipart:
       max-file-size: 1000000KB
