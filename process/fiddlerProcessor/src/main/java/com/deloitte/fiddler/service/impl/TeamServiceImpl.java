@@ -41,7 +41,7 @@ public class TeamServiceImpl implements TeamService {
 		RestTemplate restTemplate = new RestTemplate();
 		HttpEntity<StandardTeamSchema> requestEntity = new HttpEntity<StandardTeamSchema>(
 				fd);
-		return restTemplate.exchange(this.discoveryClient.getInstances(this.env.getProperty("fiddler.services.project.host")).get(0).getUri()
+		return restTemplate.exchange(this.env.getProperty("fiddler.services.project.host")
 				+ this.env.getProperty("fiddler.services.project.endpoints.update") + projectId +
 				this.env.getProperty("fiddler.services.project.endpoints.team.updateTeam"),
 				HttpMethod.PUT, requestEntity, StandardTeamSchema.class).getBody();
@@ -51,7 +51,7 @@ public class TeamServiceImpl implements TeamService {
 	@Override
 	public StandardTeamSchema removePersonFromRole(String projectId, int roleIndex, String personId) {
 		return this.restTemplate.postForObject(
-				this.discoveryClient.getInstances(this.env.getProperty("fiddler.services.project.host")).get(0).getUri()
+				this.env.getProperty("fiddler.services.project.host")
 						+ this.env.getProperty("fiddler.services.project.endpoints.get") + projectId
 						+ this.env.getProperty("fiddler.services.project.endpoints.team.updateTeam") + roleIndex
 						+ this.env.getProperty("fiddler.services.project.endpoints.team.removePersonFromRole") +"/" + personId,null,
@@ -61,7 +61,7 @@ public class TeamServiceImpl implements TeamService {
 	@Override
 	public StandardTeamSchema addPersonToRole(String projectId, int roleIndex, String personId) {
 		return this.restTemplate.postForObject(
-				this.discoveryClient.getInstances(this.env.getProperty("fiddler.services.project.host")).get(0).getUri()
+				this.env.getProperty("fiddler.services.project.host")
 						+ this.env.getProperty("fiddler.services.project.endpoints.get") + projectId
 						+ this.env.getProperty("fiddler.services.project.endpoints.team.updateTeam") + roleIndex
 						+ this.env.getProperty("fiddler.services.project.endpoints.team.addPersonToRole"), personId,
@@ -71,7 +71,7 @@ public class TeamServiceImpl implements TeamService {
 	@Override
 	public TeamRoleObject getRoleFromTeam(String projectId, int roleIndex) {
 		return this.restTemplate.getForObject(
-				this.discoveryClient.getInstances(this.env.getProperty("fiddler.services.project.host")).get(0).getUri()
+				this.env.getProperty("fiddler.services.project.host")
 						+ this.env.getProperty("fiddler.services.project.endpoints.get") + projectId
 						+ this.env.getProperty("fiddler.services.project.endpoints.team.getRoleFromTeam") + roleIndex,
 						TeamRoleObject.class);
@@ -79,7 +79,7 @@ public class TeamServiceImpl implements TeamService {
 
 	public StandardTeamSchema removeRole(String projectId, int roleIndex) {
 		return this.restTemplate.postForObject(
-				this.discoveryClient.getInstances(this.env.getProperty("fiddler.services.project.host")).get(0).getUri()
+				this.env.getProperty("fiddler.services.project.host")
 						+ this.env.getProperty("fiddler.services.project.endpoints.get") + projectId
 						+ this.env.getProperty("fiddler.services.project.endpoints.team.updateTeam") + roleIndex
 						+ this.env.getProperty("fiddler.services.project.endpoints.team.removePersonFromRole"),null,
@@ -89,7 +89,7 @@ public class TeamServiceImpl implements TeamService {
 	@Override
 	public StandardTeamSchema addRole(String projectId, String roleName) {
 		return this.restTemplate.postForObject(
-				this.discoveryClient.getInstances(this.env.getProperty("fiddler.services.project.host")).get(0).getUri()
+				this.env.getProperty("fiddler.services.project.host")
 						+ this.env.getProperty("fiddler.services.project.endpoints.get") + projectId
 						+ this.env.getProperty("fiddler.services.project.endpoints.team.addRole") ,roleName,
 						StandardTeamSchema.class);

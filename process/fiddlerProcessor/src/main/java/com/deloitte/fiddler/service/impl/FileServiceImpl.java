@@ -34,7 +34,7 @@ public class FileServiceImpl implements FileService {
 		this.restTemplate = new RestTemplate();
 		this.env = envL;
 		this.discoveryClient = discoveryClientL;
-		System.out.println(this.discoveryClient.getServices()); 
+//		System.out.println(this.discoveryClient.getServices()); 
 	}
 
 	@Override
@@ -56,7 +56,7 @@ public class FileServiceImpl implements FileService {
 
 	        HttpEntity<LinkedMultiValueMap<String, Object>> requestEntity = new HttpEntity<>(map, headers);
 
-			return this.restTemplate.postForEntity(this.discoveryClient.getInstances(this.env.getProperty("fiddler.services.file.host")).get(0).getUri() + 
+			return this.restTemplate.postForEntity(this.env.getProperty("fiddler.services.file.host") + 
 					this.env.getProperty("fiddler.services.file.endpoints.create"),
 					requestEntity,
 							String.class) 
@@ -72,7 +72,7 @@ public class FileServiceImpl implements FileService {
 
 	@Override
 	public String deleteFile(String id) {
-		return this.restTemplate.postForEntity(this.discoveryClient.getInstances(this.env.getProperty("fiddler.services.file.host")).get(0).getUri() + 
+		return this.restTemplate.postForEntity(this.env.getProperty("fiddler.services.file.host") + 
 				this.env.getProperty("fiddler.services.file.endpoints.delete") + id + "/delete",
 						null,
 						String.class)
@@ -83,7 +83,7 @@ public class FileServiceImpl implements FileService {
 	@Override
 	public Resource getFile(String id) {
 		return this.restTemplate.getForObject(
-				this.discoveryClient.getInstances(this.env.getProperty("fiddler.services.file.host")).get(0).getUri()
+				this.env.getProperty("fiddler.services.file.host")
 						+ this.env.getProperty("fiddler.services.file.endpoints.get") + id,
 						Resource.class);
 	}

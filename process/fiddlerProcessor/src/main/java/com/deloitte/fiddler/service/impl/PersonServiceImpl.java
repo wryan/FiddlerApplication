@@ -34,13 +34,13 @@ public class PersonServiceImpl implements PersonService {
 
 	public TeamMemberObject getPersonById(String id) throws NoSuchElementException {
 		return this.restTemplate.getForObject(
-				this.discoveryClient.getInstances(this.env.getProperty("fiddler.services.person.host")).get(0).getUri()
+				this.env.getProperty("fiddler.services.person.host")
 						+ this.env.getProperty("fiddler.services.person.endpoints.get") + id,
 						TeamMemberObject.class);
 	}
 
 	public boolean deletePerson(String id) {
-		return this.restTemplate.postForObject(this.discoveryClient.getInstances(this.env.getProperty("fiddler.services.person.host")).get(0).getUri()
+		return this.restTemplate.postForObject(this.env.getProperty("fiddler.services.person.host")
 				+ this.env.getProperty("fiddler.services.person.endpoints.delete") + id + "/delete", null, boolean.class);
 
 	}
@@ -48,7 +48,7 @@ public class PersonServiceImpl implements PersonService {
 
 	public TeamMemberObject createPerson(String t) {
 
-		return this.restTemplate.postForEntity(this.discoveryClient.getInstances(this.env.getProperty("fiddler.services.person.host")).get(0).getUri() + 
+		return this.restTemplate.postForEntity(this.env.getProperty("fiddler.services.person.host") + 
 				this.env.getProperty("fiddler.services.person.endpoints.create"),
 						t,
 								TeamMemberObject.class)
@@ -63,7 +63,7 @@ public class PersonServiceImpl implements PersonService {
 		HttpEntity<TeamMemberObject> requestEntity = new HttpEntity<TeamMemberObject>(
 				p);
 		return restTemplate.exchange(
-				this.discoveryClient.getInstances(this.env.getProperty("fiddler.services.person.host")).get(0).getUri()
+				this.env.getProperty("fiddler.services.person.host")
 						+ this.env.getProperty("fiddler.services.person.endpoints.update"),
 				HttpMethod.PUT, requestEntity, TeamMemberObject.class).getBody();
 
@@ -73,7 +73,7 @@ public class PersonServiceImpl implements PersonService {
 	@Override
 	public List<TeamMemberObject> getAllPeople() {
 		return Arrays.asList(this.restTemplate.getForEntity(
-				this.discoveryClient.getInstances(this.env.getProperty("fiddler.services.person.host")).get(0).getUri()
+				this.env.getProperty("fiddler.services.person.host")
 						+ this.env.getProperty("fiddler.services.person.endpoints.get"),
 						TeamMemberObject[].class).getBody());
 	}
