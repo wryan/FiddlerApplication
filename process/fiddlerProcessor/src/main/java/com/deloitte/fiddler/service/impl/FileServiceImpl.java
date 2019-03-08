@@ -52,7 +52,7 @@ public class FileServiceImpl implements FileService {
 			fo.close();
 			HttpHeaders headers = new HttpHeaders();
 	        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
-            map.add("file", new FileSystemResource(file.getOriginalFilename()));
+            map.add("file", new FileSystemResource(tempDir + "/" + file.getOriginalFilename()));
 
 	        HttpEntity<LinkedMultiValueMap<String, Object>> requestEntity = new HttpEntity<>(map, headers);
 

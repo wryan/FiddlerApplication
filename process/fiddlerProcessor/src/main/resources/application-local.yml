@@ -22,8 +22,8 @@ server:
 fiddler:
   services:
     project: 
-#      host: http://localhost:8082
-      host: projectservice
+      host: http://localhost:8082
+#      host: projectservice
       endpoints:
         get: /api/project/
         create: /api/project/
@@ -38,23 +38,23 @@ fiddler:
           addPersonToRole: /add
           removePersonFromRole: /remove
     file:
-#      host: http://localhost:8085
-      host: fileservice
+      host: http://localhost:8085
+#      host: fileservice
       endpoints:
         create: /api/file/
         get: /api/file/
         delete: /api/file/       
         
     person: 
-#      host: http://localhost:8083
-      host: personservice
+      host: http://localhost:8083
+#      host: personservice
       endpoints:
         get: /api/person/
         create: /api/person/
         update: /api/person/
         delete: /api/person/
     verify: 
-#      host: http://localhost:8084
-      host: verifyservice
+      host: http://localhost:8084
+#      host: verifyservice
       endpoints:
         verify: /api/verify/

@@ -3,6 +3,8 @@ package com.deloitte.fiddler.service;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.deloitte.fiddler.common.StandardProjectInformationSchema;
 import com.deloitte.fiddler.common.StandardTaskSchema;
 
@@ -23,5 +25,9 @@ public interface ProjectService {
 	public StandardProjectInformationSchema addProcesstoProject(String projectId, String processesArrayUrl);
 
 	public StandardTaskSchema updateTaskStatus(String status, String projectId, int processIndex, int taskIndex);
+	
+	public StandardProjectInformationSchema addDocumentToProject(String projectId, MultipartFile file);
+	
+	public boolean removeDocumentFromProject(String projectId, String documentId);
 
 }

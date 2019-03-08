@@ -21,6 +21,6 @@ spring:
       FAIL_ON_EMPTY_BEANS: false
       
 server:
-#  port: 8085
+  port: 8085 
 #  servlet:
 #    contextPath: /api
