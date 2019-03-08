@@ -31,6 +31,9 @@ public class VerifyServiceImpl implements VerifyService {
 
 	@Override
 	public Object validateJSON(String clazz, String url) {
+		System.out.println(this.env.getProperty("fiddler.services.verify.host"));
+		System.out.println(this.discoveryClient.getInstances(this.env.getProperty("fiddler.services.verify.host")).size());
+		System.out.println(this.discoveryClient.getInstances(this.env.getProperty("fiddler.services.verify.host")).get(0));
 		System.out.println(this.discoveryClient.getInstances(this.env.getProperty("fiddler.services.verify.host")).get(0).getUri()
 				+ this.env.getProperty("fiddler.services.verify.endpoints.verify")
 				+ clazz);
