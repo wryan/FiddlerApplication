@@ -151,6 +151,7 @@ public class ProjectServiceImpl implements ProjectService {
 
 	@Override
 	public boolean removeDocumentFromProject(String projectId, String documentId) {
+		this.fs.deleteFile(documentId);
 		return this.restTemplate.postForEntity(this.env.getProperty("fiddler.services.project.host") + 
 				this.env.getProperty("fiddler.services.project.endpoints.update") + projectId + "/removeDocument",
 				documentId, boolean.class).getBody();
