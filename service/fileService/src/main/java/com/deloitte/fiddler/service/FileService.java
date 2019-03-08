@@ -13,6 +13,8 @@ public interface FileService {
 	
 	public boolean deleteFile(String id);
 	
+	public String getFileName(String id);
+	
 	public Resource getFile(String id);
 	
 }

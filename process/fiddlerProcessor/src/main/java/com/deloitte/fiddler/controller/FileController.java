@@ -35,6 +35,11 @@ public class FileController {
                 "attachment; filename=\"" + file.getFilename() + "\"").body(file);
 
 	}
+	
+	@GetMapping("/{id}/name")
+	public ResponseEntity<String> getFileName(@PathVariable String id) {
+		return new ResponseEntity<String>(this.fs.getFileName(id), HttpStatus.OK);
+	}
 
 
 	@PostMapping("/{id}/delete")

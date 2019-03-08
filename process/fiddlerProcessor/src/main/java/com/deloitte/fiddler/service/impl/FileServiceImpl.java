@@ -87,6 +87,14 @@ public class FileServiceImpl implements FileService {
 						+ this.env.getProperty("fiddler.services.file.endpoints.get") + id,
 						Resource.class);
 	}
+	
+	@Override
+	public String getFileName(String id) {
+		return this.restTemplate.getForObject(
+				this.env.getProperty("fiddler.services.file.host")
+						+ this.env.getProperty("fiddler.services.file.endpoints.get") + id + '/name',
+						String.class);
+	}
 
 
 }

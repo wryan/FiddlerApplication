@@ -64,6 +64,11 @@ public class FileServiceImpl implements FileService {
 		}
 		
 	}
+	
+	public String getFileName(String id) {
+
+			return this.gridFS.findOne(new ObjectId(id)).getFilename();
+	}
 
 	public Resource getFile(String id) {
 		File f = null;
