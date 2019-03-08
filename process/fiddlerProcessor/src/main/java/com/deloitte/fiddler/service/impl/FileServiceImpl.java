@@ -92,7 +92,7 @@ public class FileServiceImpl implements FileService {
 	public String getFileName(String id) {
 		return this.restTemplate.getForObject(
 				this.env.getProperty("fiddler.services.file.host")
-						+ this.env.getProperty("fiddler.services.file.endpoints.get") + id + '/name',
+						+ this.env.getProperty("fiddler.services.file.endpoints.get") + id + "/name",
 						String.class);
 	}
 
