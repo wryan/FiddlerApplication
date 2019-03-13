@@ -4,6 +4,5 @@ COPY pom.xml /home/app
 RUN mvn -f /home/app/pom.xml clean install
 
 FROM openjdk:8-jdk-alpine
-RUN ls
 COPY --from=build /home/app/target/*.jar app.jar
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
