@@ -3,3 +3,4 @@ steps:
   args: ['build', '--tag=gcr.io/$PROJECT_ID/fileservice', '.']
   dir:  'service/fileService'
 images: ['gcr.io/$PROJECT_ID/fileservice'] 
+timeout: 1200s
