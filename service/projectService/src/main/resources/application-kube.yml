@@ -1,10 +1,10 @@
 spring:
-  profiles: development
+  profiles: kube
   application:
      name: projects-service
   data:
     mongodb:
- #     host: ${MONGO_HOST}
+      host: ${PROJECT_HOST}
  #     host: 192.168.99.100:27017
     rest:
       detection-strategy: annotated
@@ -14,6 +14,6 @@ spring:
     serialization:
       write-dates-as-timestamps: true
 server:
-  port: 8082
+#  port: 8082
 #  servlet:
 #    contextPath: /api
