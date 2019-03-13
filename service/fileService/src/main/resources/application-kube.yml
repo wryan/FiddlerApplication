@@ -1,5 +1,5 @@
 spring:
-  profile: kube
+  profiles: kube
   servlet:
     multipart:
       max-file-size: 1000000KB
