@@ -1,5 +1,5 @@
 spring:
-  profiles: development
+  profiles: kube
   application:
      name: verify-service
   data:
