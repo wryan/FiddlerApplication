@@ -1,0 +1,8 @@
+steps:
+- name: 'gcr.io/cloud-builders/mvn'
+  args: ['install']
+  dir:  'service/peopleService'
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '--tag=gcr.io/$PROJECT_ID/peopleservice', '.']
+  dir:  'service/peopleService'
+images: ['gcr.io/$PROJECT_ID/peopleservice'] 

@@ -1,4 +1,5 @@
 spring:
+  profiles: development
   application:
      name: verify-service
   data:
@@ -10,6 +11,6 @@ spring:
     serialization:
       write-dates-as-timestamps: true
 server:
-  port: 8084
+#  port: 8084
 #  servlet:
 #    contextPath: /api

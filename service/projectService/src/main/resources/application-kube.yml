@@ -1,0 +1,19 @@
+spring:
+  profiles: kube
+  application:
+     name: projects-service
+  data:
+    mongodb:
+      host: ${PROJECT_HOST}
+ #     host: 192.168.99.100:27017
+    rest:
+      detection-strategy: annotated
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+  jackson:
+    serialization:
+      write-dates-as-timestamps: true
+server:
+#  port: 8082
+#  servlet:
+#    contextPath: /api

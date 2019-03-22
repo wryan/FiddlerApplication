@@ -23,6 +23,10 @@ public interface ProjectService {
 	public StandardProjectInformationSchema addProcesstoProject(String projectId, ProcessesArray processArray);
 	
 	public StandardTaskSchema updateTaskStatus(String status, String projectId, int processIndex, int taskIndex);
+	
+	public StandardProjectInformationSchema addDocumentToProject(String projectId, String documentId);
+	
+	public boolean removeDocumentFromProject(String projectId, String documentId);
 
 }
  

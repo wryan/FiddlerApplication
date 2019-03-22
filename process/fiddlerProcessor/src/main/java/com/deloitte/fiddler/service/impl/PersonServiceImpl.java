@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -20,12 +21,14 @@ public class PersonServiceImpl implements PersonService {
 	RestTemplate restTemplate;
 
 	Environment env;
+	
+	DiscoveryClient discoveryClient;
 
 	@Autowired
-	public PersonServiceImpl(Environment envL) {
+	public PersonServiceImpl(Environment envL,  DiscoveryClient discoveryClientL) {
 		this.restTemplate = new RestTemplate();
 		this.env = envL;
-
+		this.discoveryClient = discoveryClientL;
 	}
 
 
@@ -54,7 +57,7 @@ public class PersonServiceImpl implements PersonService {
 		
 	}
 
-	@Override
+	@Override 
 	public TeamMemberObject updatePerson(TeamMemberObject p){
 		RestTemplate restTemplate = new RestTemplate();
 		HttpEntity<TeamMemberObject> requestEntity = new HttpEntity<TeamMemberObject>(

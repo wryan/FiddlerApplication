@@ -42,6 +42,16 @@
 			"format": "date-time",
 			"$comment": "Value is set when the project is created"
 		},
+		"attachments": {
+					"description": "List of attachments ",
+					"type": "array",
+					"items": {
+						"description": "ID of attachment",
+						"type": "string",
+						"$comment": "Unique ID of the attachment"
+					},
+					"$comment": "Can be null"
+		},
 		"processesArray": {
 			"description": "Set of categorized subprocesses",
 			"type": "array",

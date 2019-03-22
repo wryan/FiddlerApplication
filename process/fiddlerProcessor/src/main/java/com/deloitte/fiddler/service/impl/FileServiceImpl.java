@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
@@ -25,12 +26,15 @@ public class FileServiceImpl implements FileService {
 	RestTemplate restTemplate;
 
 	Environment env;
+	
+	DiscoveryClient discoveryClient;
 
 	@Autowired
-	public FileServiceImpl(Environment envL) {
+	public FileServiceImpl(Environment envL,  DiscoveryClient discoveryClientL) {
 		this.restTemplate = new RestTemplate();
 		this.env = envL;
-
+		this.discoveryClient = discoveryClientL;
+//		System.out.println(this.discoveryClient.getServices()); 
 	}
 
 	@Override
@@ -48,7 +52,7 @@ public class FileServiceImpl implements FileService {
 			fo.close();
 			HttpHeaders headers = new HttpHeaders();
 	        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
-            map.add("file", new FileSystemResource(file.getOriginalFilename()));
+            map.add("file", new FileSystemResource(tempDir + "/" + file.getOriginalFilename()));
 
 	        HttpEntity<LinkedMultiValueMap<String, Object>> requestEntity = new HttpEntity<>(map, headers);
 
@@ -82,6 +86,14 @@ public class FileServiceImpl implements FileService {
 				this.env.getProperty("fiddler.services.file.host")
 						+ this.env.getProperty("fiddler.services.file.endpoints.get") + id,
 						Resource.class);
+	}
+	
+	@Override
+	public String getFileName(String id) {
+		return this.restTemplate.getForObject(
+				this.env.getProperty("fiddler.services.file.host")
+						+ this.env.getProperty("fiddler.services.file.endpoints.get") + id + "/name",
+						String.class);
 	}
 
 

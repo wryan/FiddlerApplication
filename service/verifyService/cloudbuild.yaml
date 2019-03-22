@@ -1,0 +1,8 @@
+steps:
+- name: 'gcr.io/cloud-builders/mvn'
+  args: ['install']
+  dir:  'service/verifyService'
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '--tag=gcr.io/$PROJECT_ID/verifyservice', '.']
+  dir:  'service/verifyService'
+images: ['gcr.io/$PROJECT_ID/verifyservice'] 

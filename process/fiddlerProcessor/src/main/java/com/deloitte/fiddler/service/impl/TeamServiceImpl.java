@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -23,11 +24,14 @@ public class TeamServiceImpl implements TeamService {
 	RestTemplate restTemplate;
 
 	Environment env;
+	
+	DiscoveryClient discoveryClient;
 
 	@Autowired
-	public TeamServiceImpl(Environment envL) {
+	public TeamServiceImpl(Environment envL,  DiscoveryClient discoveryClientL) {
 		this.restTemplate = new RestTemplate();
 		this.env = envL;
+		this.discoveryClient = discoveryClientL;
 
 	}
 
@@ -37,8 +41,7 @@ public class TeamServiceImpl implements TeamService {
 		RestTemplate restTemplate = new RestTemplate();
 		HttpEntity<StandardTeamSchema> requestEntity = new HttpEntity<StandardTeamSchema>(
 				fd);
-		return restTemplate.exchange(
-				this.env.getProperty("fiddler.services.project.host")
+		return restTemplate.exchange(this.env.getProperty("fiddler.services.project.host")
 				+ this.env.getProperty("fiddler.services.project.endpoints.update") + projectId +
 				this.env.getProperty("fiddler.services.project.endpoints.team.updateTeam"),
 				HttpMethod.PUT, requestEntity, StandardTeamSchema.class).getBody();

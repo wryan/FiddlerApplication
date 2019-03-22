@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.deloitte.fiddler.common.StandardProjectInformationSchema;
 import com.deloitte.fiddler.common.StandardTaskSchema;
@@ -52,6 +54,17 @@ public class ProjectController {
 			@RequestBody String processURL) {
 		return this.ps.addProcesstoProject(id, processURL);
 
+	}
+	
+	@PostMapping("/{id}/addDocument")
+	public StandardProjectInformationSchema addDocumentToProject(@PathVariable String id, @RequestParam("file") MultipartFile file) {
+		return this.ps.addDocumentToProject(id, file);
+		
+	}
+	@PostMapping("/{id}/removeDocument")
+	public boolean removeDocumentFromProject(@PathVariable String id, @RequestBody String documentId) {
+		return this.ps.removeDocumentFromProject(id, documentId);
+		
 	}
 
 	@PostMapping("/{id}/{procId}/{taskId}/status")

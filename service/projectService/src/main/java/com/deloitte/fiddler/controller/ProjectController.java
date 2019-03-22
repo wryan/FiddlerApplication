@@ -81,6 +81,17 @@ public class ProjectController {
 		
 	}
 	
+	@PostMapping("/{id}/addDocument")
+	public StandardProjectInformationSchema addDocumentToProject(@PathVariable String id, @RequestBody String documentId) {
+		return this.ps.addDocumentToProject(id, documentId);
+		
+	}
+	@PostMapping("/{id}/removeDocument")
+	public boolean removeDocumentFromProject(@PathVariable String id, @RequestBody String documentId) {
+		return this.ps.removeDocumentFromProject(id, documentId); 
+		
+	}
+	
 	@PutMapping("/{id}/team")
 	public ResponseEntity<StandardTeamSchema> updateTeam(@PathVariable String id, @RequestBody StandardTeamSchema fp) {
 		return new ResponseEntity<StandardTeamSchema>(this.ts.updateTeam(id, fp), HttpStatus.ACCEPTED);

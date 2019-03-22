@@ -117,4 +117,20 @@ public class ProjectServiceImpl implements ProjectService {
 		return proj;
 	}
 
+	@Override
+	public StandardProjectInformationSchema addDocumentToProject(String projectId, String documentId) {
+		StandardProjectInformationSchema proj = this.getProjectByID(projectId);
+		proj.getAttachments().add(documentId);
+		return this.updateProject(proj);
+	}
+
+	@Override
+	public boolean removeDocumentFromProject(String projectId, String documentId) {
+		StandardProjectInformationSchema proj = this.getProjectByID(projectId);
+		proj.getAttachments().remove(proj.getAttachments().stream().filter(a -> a.equals(documentId)).findFirst().get());
+		System.out.println(proj.getAttachments().toString());
+		this.updateProject(proj);
+		return true;
+	}
+
 }

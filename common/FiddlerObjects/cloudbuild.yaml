@@ -2,3 +2,7 @@ steps:
 - name: 'gcr.io/cloud-builders/mvn'
   args: ['install']
   dir:  'common/FiddlerObjects'
+- name: 'gcr.io/cloud-builders/mvn'
+  args: ['deploy']
+  dir:  'common/FiddlerObjects'
+timeout: 1200s

@@ -1,4 +1,5 @@
 spring:
+  profiles: development
   application:
      name: projects-service
   data:
